@@ -5,22 +5,22 @@ export interface VkxInputProps {
   children?: ReactNode;
   className?: string; // add className prop
   type?:
-  | "text"
-  | "search"
-  | "url"
-  | "tel"
-  | "email"
-  | "password"
-  | (string & {});
+    | "text"
+    | "search"
+    | "url"
+    | "tel"
+    | "email"
+    | "password"
+    | (string & {});
   placeholder?: string;
   pattern?: string;
-  required?:boolean;
+  required?: boolean;
   label?: ReactNode;
   defaultValue?: string;
   readOnly?: boolean;
   isDisabled?: boolean;
-  isRequired?:boolean;
-  name?:string;
+  isRequired?: boolean;
+  name?: string;
   labelPlacement?: "outside" | "outside-left" | "inside" | undefined;
   description?: string;
   errorMessage?: string;
@@ -29,5 +29,7 @@ export interface VkxInputProps {
   onValueChange?: (value: string) => void;
   onClear?: () => void;
   endContent?: ReactNode;
-  validate?: ((value: string) => ValidationError | true | null | undefined) | undefined;
+  validate?:
+    | ((value: string) => ValidationError | true | null | undefined)
+    | undefined;
 }

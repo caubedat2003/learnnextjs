@@ -83,9 +83,6 @@ export function VkxAutocomplete({
       isDisabled={isDisabled}
       isRequired={isRequired}
       label={label}
-      onClose={handleClose}
-      onInputChange={onInputChange}
-      onSelectionChange={onSelectionChange}
       placeholder={placeholder}
       readOnly={readOnly}
       selectedKey={selectedKey}
@@ -93,6 +90,9 @@ export function VkxAutocomplete({
       size={size}
       startContent={startContent}
       variant={variant}
+      onClose={handleClose}
+      onInputChange={onInputChange}
+      onSelectionChange={onSelectionChange}
     >
       {options.map((option) => (
         <AutocompleteItem

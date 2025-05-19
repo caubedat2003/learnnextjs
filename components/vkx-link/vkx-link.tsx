@@ -9,7 +9,13 @@ export interface VkxLinkProps {
   isExternal?: boolean;
   isBlock?: boolean;
   size?: "sm" | "md" | "lg";
-  color?: "foreground" | "primary" | "secondary" | "success" | "warning" | "danger";
+  color?:
+    | "foreground"
+    | "primary"
+    | "secondary"
+    | "success"
+    | "warning"
+    | "danger";
   underline?: "none" | "hover" | "always" | "active" | "focus";
   showAnchorIcon?: boolean;
   anchorIcon?: ReactNode;
@@ -61,11 +67,6 @@ export const VkxLink: React.FC<VkxLinkProps> = ({
       isBlock={isBlock}
       isDisabled={isDisabled}
       isExternal={isExternal}
-      onKeyDown={onKeyDown}
-      onKeyUp={onKeyUp}
-      onPress={onPress}
-      onPressEnd={onPressEnd}
-      onPressStart={onPressStart}
       ping={ping}
       referrerPolicy={referrerPolicy}
       rel={rel}
@@ -73,6 +74,11 @@ export const VkxLink: React.FC<VkxLinkProps> = ({
       size={size}
       target={target}
       underline={underline}
+      onKeyDown={onKeyDown}
+      onKeyUp={onKeyUp}
+      onPress={onPress}
+      onPressEnd={onPressEnd}
+      onPressStart={onPressStart}
     >
       {children}
     </Link>
