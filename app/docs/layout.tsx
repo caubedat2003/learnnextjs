@@ -49,6 +49,7 @@ export default function DocsLayout({
   const layoutComponents: NavigationModels[] = [
     { name: "Navbar", href: "/docs/vkx-navbar" },
     { name: "Tabs", href: "/docs/vkx-tabs" },
+    { name: "Dropdown", href: "/docs/vkx-dropdown" },
   ];
   const notificationComponents: NavigationModels[] = [];
   const displayComponents: NavigationModels[] = [

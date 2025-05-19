@@ -24,7 +24,7 @@ export default function VKXTabs({ tabs, className, tabActive }: VKXTabsProps) {
       <Tabs
         className={className}
         selectedKey={selected}
-        onSelectionChange={setSelected}
+        onSelectionChange={(key) => setSelected(String(key))}
       >
         {tabs.map((item) => (
           <Tab key={item.key} title={item.title}>
