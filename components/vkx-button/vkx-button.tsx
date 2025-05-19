@@ -12,6 +12,8 @@ const VkxButton: React.FC<VkxButtonProps> = ({
   onPress,
   startContent,
   type,
+  variant,
+  ...props
 }) => {
   return (
     <Button
@@ -22,7 +24,9 @@ const VkxButton: React.FC<VkxButtonProps> = ({
       isLoading={isLoading}
       startContent={startContent}
       type={type}
+      variant={variant}
       onPress={onPress}
+      {...props}
     >
       {children}
     </Button>

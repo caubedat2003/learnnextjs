@@ -2,7 +2,8 @@
 
 import React, { JSX } from "react";
 
-import { VkxInput } from "@/components/vkx-input/vkx-input";
+import { VkxInput } from "@/components/vkx-input";
+import VkxButton from "@/components/vkx-button/vkx-button";
 
 export default function VkxInputPage() {
   const [value, setValue] = React.useState("");
@@ -187,23 +188,40 @@ export default function VkxInputPage() {
         <VkxInput
           description="Click vào icon bên phải để hiện/ẩn mật khẩu"
           endContent={
-            <button
+            <VkxButton
               aria-label="toggle password visibility"
               className="focus:outline-none"
+              isIconOnly={true}
               type="button"
-              onClick={toggleVisibility}
+              variant="light"
+              onPress={toggleVisibility}
             >
               {isVisible ? (
                 <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
               ) : (
                 <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
               )}
-            </button>
+            </VkxButton>
           }
           label="Password"
           placeholder="Nhập mật khẩu của bạn"
           type={isVisible ? "text" : "password"}
         />
+      </div>
+
+      <div>
+        <h1 className="text-xl font-medium text-black dark:text-white">
+          7. Tải lên một hoặc nhiều file
+        </h1>
+        <div className="mb-4">
+          <p className="text-gray-600 dark:text-gray-400">
+            Kiểm tra xem đuôi file có
+          </p>
+          <p className="mt-2 text-sm text-gray-500" />
+        </div>
+      </div>
+      <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+        <VkxInput multiple accept="video/mp4" type="file" />
       </div>
 
       <div className="mt-12">
@@ -258,7 +276,7 @@ export default function VkxInputPage() {
                   &quot;text&quot;
                 </td>
                 <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">
-                  Kiểu input (text, email, password, etc.)
+                  Kiểu input (text, email, password, file, tel, search, url)
                 </td>
               </tr>
               <tr>
@@ -442,6 +460,39 @@ export default function VkxInputPage() {
                 </td>
                 <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">
                   Nội dung hiển thị ở cuối input
+                </td>
+              </tr>
+              <tr>
+                <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">
+                  multiple
+                </td>
+                <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">
+                  boolean
+                </td>
+                <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">
+                  false
+                </td>
+                <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">
+                  Thuộc tính multiple cho phép người dùng chọn nhiều file cùng
+                  một lúc khi sử dụng input file.
+                </td>
+              </tr>
+              <tr>
+                <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">
+                  accept
+                </td>
+                <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">
+                  string
+                </td>
+                <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">
+                  Ví dụ: video/mp4
+                </td>
+                <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">
+                  MIME
+                  https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/MIME_types/Common_types
+                  Thuộc tính accept chỉ định loại file mà input file sẽ chấp
+                  nhận, giúp giới hạn các file hiển thị trong giao diện chọn
+                  file của trình duyệt.
                 </td>
               </tr>
             </tbody>

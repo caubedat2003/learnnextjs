@@ -1,8 +1,8 @@
-import { DatePicker, DateValue } from "@heroui/react";
+import { DatePicker, DatePickerProps, DateValue } from "@heroui/react";
 import { ValidationResult } from "@react-types/shared";
 import React, { ReactNode } from "react";
 
-export interface VkxDatePickerProps {
+export interface VkxDatePickerProps extends DatePickerProps {
   label?: string;
   placeholder?: DateValue | null;
   value?: DateValue | null;

@@ -1,7 +1,7 @@
-import { Link } from "@heroui/react";
+import { Link, LinkProps } from "@heroui/react";
 import React, { ReactNode } from "react";
 
-export interface VkxLinkProps {
+export interface VkxLinkProps extends LinkProps {
   href: string;
   children: ReactNode;
   className?: string;
@@ -55,6 +55,7 @@ export const VkxLink: React.FC<VkxLinkProps> = ({
   size,
   target,
   underline,
+  ...props
 }) => {
   return (
     <Link
@@ -79,6 +80,7 @@ export const VkxLink: React.FC<VkxLinkProps> = ({
       onPress={onPress}
       onPressEnd={onPressEnd}
       onPressStart={onPressStart}
+      {...props}
     >
       {children}
     </Link>

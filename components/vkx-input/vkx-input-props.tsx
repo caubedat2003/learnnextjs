@@ -1,7 +1,7 @@
+import { InputProps } from "@heroui/input";
 import { ValidationError } from "next/dist/compiled/amphtml-validator";
 import { ReactNode } from "react";
-
-export interface VkxInputProps {
+export interface VkxInputProps extends InputProps {
   children?: ReactNode;
   className?: string; // add className prop
   type?:
@@ -11,6 +11,7 @@ export interface VkxInputProps {
     | "tel"
     | "email"
     | "password"
+    | "file"
     | (string & {});
   placeholder?: string;
   pattern?: string;
@@ -22,6 +23,9 @@ export interface VkxInputProps {
   isRequired?: boolean;
   name?: string;
   labelPlacement?: "outside" | "outside-left" | "inside" | undefined;
+  min?: string | number | undefined;
+  max?: string | number | undefined;
+  maxLength?: number;
   description?: string;
   errorMessage?: string;
   isInvalid?: boolean;

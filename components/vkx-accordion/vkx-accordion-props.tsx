@@ -1,8 +1,9 @@
 import { Selection, SelectionMode } from "@react-types/shared";
+import { AccordionProps } from "@heroui/react";
 
 import { VkxAccordionItemProps } from "./vkx-accordion-item-props";
 
-export interface VkxAccordionProps {
+export interface VkxAccordionProps extends AccordionProps {
   accordionItems: VkxAccordionItemProps[];
   defaultExpandedKeys?: Set<string>;
   disabledKeys?: Set<string>;
