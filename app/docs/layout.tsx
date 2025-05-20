@@ -93,7 +93,7 @@ export default function DocsLayout({
                                 "hover:bg-default-100",
                                 pathname === item.href
                                   ? "bg-default-100 text-default-foreground"
-                                  : "text-default-500",
+                                  : "text-default-500"
                               )}
                               href={item.href}
                             >
@@ -128,7 +128,7 @@ export default function DocsLayout({
                                 "hover:bg-default-100",
                                 pathname === item.href
                                   ? "bg-default-100 text-default-foreground"
-                                  : "text-default-500",
+                                  : "text-default-500"
                               )}
                               href={item.href}
                             >
@@ -163,7 +163,7 @@ export default function DocsLayout({
                                 "hover:bg-default-100",
                                 pathname === item.href
                                   ? "bg-default-100 text-default-foreground"
-                                  : "text-default-500",
+                                  : "text-default-500"
                               )}
                               href={item.href}
                             >
@@ -198,7 +198,7 @@ export default function DocsLayout({
                                 "hover:bg-default-100",
                                 pathname === item.href
                                   ? "bg-default-100 text-default-foreground"
-                                  : "text-default-500",
+                                  : "text-default-500"
                               )}
                               href={item.href}
                             >

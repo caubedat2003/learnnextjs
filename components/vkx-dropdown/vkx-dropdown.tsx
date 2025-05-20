@@ -39,6 +39,7 @@ export interface VKXDropdownProps {
     | "success"
     | "warning"
     | "danger";
+  isDisabled?: boolean;
   triggerNode?: React.ReactNode;
   sections: Array<VKXDropdownSection>;
   disabledKeys?: Array<string>;
@@ -49,13 +50,17 @@ export default function VKXDropdown({
   className,
   variant = "solid",
   color = "default",
+  isDisabled = false,
   triggerNode,
   sections = [],
   disabledKeys = [],
   onAction,
 }: VKXDropdownProps) {
   return (
-    <Dropdown className={className}>
+    <Dropdown
+      className={className}
+      isDisabled={isDisabled}
+    >
       <DropdownTrigger>{triggerNode}</DropdownTrigger>
       <DropdownMenu
         color={color}
