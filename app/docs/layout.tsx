@@ -47,9 +47,11 @@ export default function DocsLayout({
     { name: "Tooltip", href: "/docs/vkx-tooltip" },
   ];
   const layoutComponents: NavigationModels[] = [
+    { name: "Breadcrumbs", href: "/docs/vkx-breadcrumbs" },
+    { name: "Card", href: "/docs/vkx-card" },
+    { name: "Dropdown", href: "/docs/vkx-dropdown" },
     { name: "Navbar", href: "/docs/vkx-navbar" },
     { name: "Tabs", href: "/docs/vkx-tabs" },
-    { name: "Dropdown", href: "/docs/vkx-dropdown" },
   ];
   const notificationComponents: NavigationModels[] = [];
   const displayComponents: NavigationModels[] = [

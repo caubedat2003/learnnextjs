@@ -19,56 +19,6 @@ import {
 } from "@heroui/react";
 
 export default function VKXTabsPage() {
-  const handleAction = (key: string) => {
-    console.log("Item clicked:", key);
-  };
-
-  const sections: Array<VKXDropdownSection> = [
-    {
-      key: "actions",
-      title: "Actions",
-      items: [
-        {
-          key: "new",
-          label: "New file",
-          description: "Create a new file",
-          shortcut: "⌘N",
-          onAction: () => handleAction("new"),
-        },
-        {
-          key: "copy",
-          label: "Copy link",
-          shortcut: "⌘C",
-          onAction: () => handleAction("copy"),
-        },
-        {
-          key: "edit",
-          label: "Edit",
-          shortcut: "⌘E",
-          onAction: () => handleAction("edit"),
-        },
-      ],
-    },
-    {
-      key: "danger",
-      title: "Danger zone",
-      items: [
-        {
-          key: "delete",
-          label: "Delete",
-          description: "Permanently delete the file",
-          onAction: () => handleAction("delete"),
-        },
-        {
-          key: "report",
-          label: "Report",
-          isDisabled: true,
-          onAction: () => handleAction("report"),
-        },
-      ],
-    },
-  ];
-
   return (
     <div>
       <div className="mb-10">

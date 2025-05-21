@@ -1,38 +1,95 @@
 "use client";
 
-import { Tabs, Tab } from "@heroui/react";
-import { useState } from "react";
+import { Tabs, Tab, Card, CardBody } from "@heroui/react";
+import React from "react";
 
-interface VKXtab {
-  key: string;
-  title: string;
-  icon?: React.ReactNode;
+// Định nghĩa interface cho một item trong tab
+interface VKXTabItem {
+  id: React.Key;
+  label: React.ReactNode;
   content: React.ReactNode;
 }
 
+// Định nghĩa interface cho props của VKXTabs
 interface VKXTabsProps {
+  variant?: "solid" | "bordered" | "light" | "underlined";
+  color?:
+    | "default"
+    | "primary"
+    | "secondary"
+    | "success"
+    | "warning"
+    | "danger";
+  size?: "sm" | "md" | "lg";
+  radius?: "none" | "sm" | "md" | "lg" | "full";
   className?: string;
-  tabs: Array<VKXtab>;
-  tabActive?: string;
+  fullWidth?: boolean;
+  disabledKeys?: string[];
+  selectedKey?: string;
+  defaultSelectedKey?: string | number;
+  shouldSelectOnPressUp?: boolean;
+  keyboardActivation?: "manual" | "automatic";
+  disableCursorAnimation?: boolean;
+  isDisabled?: boolean;
+  disableAnimation?: boolean;
+  placement?: "top" | "bottom" | "start" | "end";
+  isVertical?: boolean;
+  destroyInactiveTabPanel?: boolean;
+  items: VKXTabItem[]; // Prop items là bắt buộc
+  onSelectionChange?: (key: React.Key) => void;
 }
 
-export default function VKXTabs({ tabs, className, tabActive }: VKXTabsProps) {
-  const [selected, setSelected] = useState<string | undefined>(tabActive);
-
+// Component VKXTabs
+export function VKXTabs({
+  variant = "solid",
+  color = "default",
+  size = "md",
+  radius = "md",
+  className,
+  fullWidth = false,
+  disabledKeys,
+  selectedKey,
+  defaultSelectedKey,
+  shouldSelectOnPressUp = true,
+  keyboardActivation = "automatic",
+  disableCursorAnimation = false,
+  isDisabled = false,
+  disableAnimation = false,
+  placement = "top",
+  isVertical = false,
+  destroyInactiveTabPanel = false,
+  items,
+  onSelectionChange,
+}: VKXTabsProps) {
   return (
-    <div className="flex w-full flex-col">
-      <Tabs
-        className={className}
-        selectedKey={selected}
-        onSelectionChange={(key) => setSelected(String(key))}
-      >
-        {tabs.map((item) => (
-          <Tab key={item.key} title={item.title}>
-            {item.icon && <span className="mr-2">{item.icon}</span>}
-            {item.content}
-          </Tab>
-        ))}
-      </Tabs>
-    </div>
+    <Tabs
+      aria-label="VKX tabs"
+      className={className}
+      color={color}
+      defaultSelectedKey={defaultSelectedKey}
+      destroyInactiveTabPanel={destroyInactiveTabPanel}
+      disableAnimation={disableAnimation}
+      disableCursorAnimation={disableCursorAnimation}
+      disabledKeys={disabledKeys}
+      fullWidth={fullWidth}
+      isDisabled={isDisabled}
+      isVertical={isVertical}
+      keyboardActivation={keyboardActivation}
+      placement={placement}
+      radius={radius}
+      selectedKey={selectedKey}
+      shouldSelectOnPressUp={shouldSelectOnPressUp}
+      size={size}
+      variant={variant}
+      onSelectionChange={onSelectionChange}
+    >
+      {items.map((item) => (
+        <Tab key={item.id} title={item.label}>
+          <Card>
+            <CardBody>{item.content}</CardBody>
+          </Card>
+        </Tab>
+      ))}
+    </Tabs>
   );
 }

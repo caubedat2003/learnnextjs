@@ -1,4 +1,6 @@
-import { Card, CardHeader, CardBody, CardFooter } from "@heroui/card";
+"use client";
+
+import { Card, CardHeader, CardBody, CardFooter, Divider } from "@heroui/react";
 
 export interface VKXCardProps {
   className?: string;
@@ -18,8 +20,11 @@ export interface VKXCardProps {
   onPressEnd?: () => void;
   onPressChange?: () => void;
   onPressUp?: () => void;
+  headerClassName?: string;
   header?: React.ReactNode;
-  body?: React.ReactNode;
+  bodyClassName?: string;
+  children: React.ReactNode;
+  footerClassName?: string;
   footer?: React.ReactNode;
 }
 
@@ -41,8 +46,11 @@ export default function VKXCard({
   onPressEnd,
   onPressChange,
   onPressUp,
+  headerClassName,
   header,
-  body,
+  bodyClassName,
+  children,
+  footerClassName,
   footer,
 }: VKXCardProps) {
   return (
@@ -65,9 +73,11 @@ export default function VKXCard({
       onPressChange={onPressChange}
       onPressUp={onPressUp}
     >
-      {header && <CardHeader>{header}</CardHeader>}
-      {body && <CardBody>{body}</CardBody>}
-      {footer && <CardFooter>{footer}</CardFooter>}
+      {header && <CardHeader className={headerClassName}>{header}</CardHeader>}
+      <CardBody className={bodyClassName}>
+        {children}
+      </CardBody>
+      {footer && <CardFooter className={footerClassName}>{footer}</CardFooter>}
     </Card>
   );
 }
