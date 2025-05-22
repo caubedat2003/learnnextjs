@@ -50,6 +50,7 @@ export default function DocsLayout({
   const notificationComponents: NavigationModels[] = [];
   const displayComponents: NavigationModels[] = [
     { name: "Accordion", href: "/docs/vkx-accordion" },
+    { name: "Modal", href: "/docs/vkx-modal" },
   ];
 
   return (
@@ -70,7 +71,7 @@ export default function DocsLayout({
                 </p>
               ),
               children: (
-                <VkxAccordion                  
+                <VkxAccordion
                   accordionItems={[
                     // Form components
                     {
