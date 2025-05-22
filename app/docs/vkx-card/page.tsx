@@ -1,6 +1,6 @@
 "use client";
 
-import VKXCard from "@/components/vkx-card/vkx-card";
+import { VKXCard } from "@/components/vkx-card/vkx-card";
 import {
   Table,
   TableBody,

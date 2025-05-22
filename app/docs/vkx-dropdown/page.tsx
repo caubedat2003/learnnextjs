@@ -1,8 +1,6 @@
 "use client";
 
-import VKXDropdown, {
-  VKXDropdownSection,
-} from "@/components/vkx-dropdown/vkx-dropdown";
+import { VKXDropdown } from "@/components/vkx-dropdown/vkx-dropdown";
 import { Button } from "@heroui/react";
 import {
   DocumentIcon,
@@ -289,9 +287,7 @@ export default function VKXTabsPage() {
               <TableCell>key</TableCell>
               <TableCell>string</TableCell>
               <TableCell>-</TableCell>
-              <TableCell>
-                Key section
-              </TableCell>
+              <TableCell>Key section</TableCell>
             </TableRow>
             <TableRow key="2">
               <TableCell>title</TableCell>
@@ -322,9 +318,7 @@ export default function VKXTabsPage() {
               <TableCell>key</TableCell>
               <TableCell>string</TableCell>
               <TableCell>-</TableCell>
-              <TableCell>
-                Key item
-              </TableCell>
+              <TableCell>Key item</TableCell>
             </TableRow>
             <TableRow key="2">
               <TableCell>className</TableCell>

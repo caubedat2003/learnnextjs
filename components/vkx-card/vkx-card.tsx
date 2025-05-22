@@ -28,7 +28,7 @@ export interface VKXCardProps {
   footer?: React.ReactNode;
 }
 
-export default function VKXCard({
+export function VKXCard({
   className,
   shadow = "md",
   radius = "lg",

@@ -47,7 +47,7 @@ export interface VKXDropdownProps {
   onAction?: () => void;
 }
 
-export default function VKXDropdown({
+export function VKXDropdown({
   className,
   variant = "solid",
   color = "default",

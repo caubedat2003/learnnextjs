@@ -4,14 +4,14 @@ import { Tabs, Tab, Card, CardBody } from "@heroui/react";
 import React from "react";
 
 // Định nghĩa interface cho một item trong tab
-interface VKXTabItem {
+export interface VKXTabItem {
   id: React.Key;
   label: React.ReactNode;
   content: React.ReactNode;
 }
 
 // Định nghĩa interface cho props của VKXTabs
-interface VKXTabsProps {
+export interface VKXTabsProps {
   variant?: "solid" | "bordered" | "light" | "underlined";
   color?:
     | "default"
@@ -25,7 +25,7 @@ interface VKXTabsProps {
   className?: string;
   fullWidth?: boolean;
   disabledKeys?: string[];
-  selectedKey?: string;
+  selectedKey?: React.Key;
   defaultSelectedKey?: string | number;
   shouldSelectOnPressUp?: boolean;
   keyboardActivation?: "manual" | "automatic";
@@ -77,7 +77,7 @@ export function VKXTabs({
       keyboardActivation={keyboardActivation}
       placement={placement}
       radius={radius}
-      selectedKey={selectedKey}
+      selectedKey={selectedKey?.toString()}
       shouldSelectOnPressUp={shouldSelectOnPressUp}
       size={size}
       variant={variant}
