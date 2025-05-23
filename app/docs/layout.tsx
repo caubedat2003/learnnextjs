@@ -46,7 +46,10 @@ export default function DocsLayout({
     { name: "Table", href: "/docs/vkx-table" },
     { name: "Tooltip", href: "/docs/vkx-tooltip" },
   ];
-  const layoutComponents: NavigationModels[] = [];
+  const layoutComponents: NavigationModels[] = [
+    { name: "Spacer", href: "/docs/vkx-spacer" },
+    { name: "Listbox", href: "/docs/vkx-listbox" },
+  ];
   const notificationComponents: NavigationModels[] = [];
   const displayComponents: NavigationModels[] = [
     { name: "Accordion", href: "/docs/vkx-accordion" },

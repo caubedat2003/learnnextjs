@@ -52,6 +52,15 @@ export default function VKXModalPage() {
 
     return (
         <div className="flex w-full flex-col gap-y-10 pb-8">
+            <h1 className="text-3xl font-medium text-black dark:text-white mb-2">
+                <strong>
+                    Modal
+                </strong>
+            </h1>
+            <p>
+                Là một thành phần dùng để hiển thị hộp thoại hoặc cửa sổ nổi bật trên trang web. Modal thường được sử dụng để hiển thị thông báo, xác nhận hành động, hoặc cung cấp thông tin bổ sung mà không làm mất đi ngữ cảnh của trang hiện tại.
+            </p>
+
             <div>
                 <h1 className="text-xl font-medium text-black dark:text-white mb-3">
                     1. Các thành phần chính
