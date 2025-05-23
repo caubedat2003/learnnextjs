@@ -1,5 +1,17 @@
 export const listboxProps = [
     {
+        prop: "children",
+        type: "ReactNode[]",
+        default: "",
+        description: "Nội dung con của Listbox để render. Thường là ListboxItem hoặc ListboxSection."
+    },
+    {
+        prop: "item",
+        type: "Iterable<T>",
+        default: "",
+        description: "Các mục riêng lẻ trong Listbox"
+    },
+    {
         prop: "variant",
         type: '"flat" | "bordered" | "faded" | "underlined"',
         default: '"flat"',
@@ -24,9 +36,15 @@ export const listboxProps = [
         description: "Chế độ chọn của Listbox: không chọn, chọn một mục hoặc chọn nhiều mục."
     },
     {
+        prop: "selectedKeys",
+        type: "React.Key[]",
+        default: '',
+        description: "Danh sách các key của các mục đã được chọn trong Listbox."
+    },
+    {
         prop: "disabledKeys",
-        type: "string[]",
-        default: "[]",
+        type: "React.Key[]",
+        default: "",
         description: "Danh sách các key của các mục bị vô hiệu hóa, ngăn người dùng chọn các mục này."
     },
     {
@@ -57,7 +75,7 @@ export const listboxProps = [
         prop: "itemHeight",
         type: "number",
         default: "32",
-        description: "Chiều cao của mỗi mục trong Listbox, cần thiết khi sử dụng ảo hóa."
+        description: "Chiều cao của mỗi mục trong Listbox, cần thiết khi sử dụng virtualized."
     },
     {
         prop: "classNames",

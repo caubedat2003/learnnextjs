@@ -10,7 +10,7 @@ export interface VkxListboxProps<T extends object = object> {
     onSelectionChange?: (keys: "all" | Set<Key>) => void; // Callback for selection changes
     selectionMode?: "none" | "single" | "multiple"; // Selection behavior
     disabledKeys?: Iterable<Key>; // Keys of disabled items
-    variant?: "flat" | "bordered" | "light" | "faded"; // Visual style of the listbox
+    variant?: "solid" | "flat" | "bordered" | "light" | "faded" | "shadow"; // Visual style of the listbox
     color?: "default" | "primary" | "secondary" | "success" | "warning" | "danger"; // Color theme
     radius?: "none" | "sm" | "md" | "lg" | "full"; // Border radius
     itemClasses?: SlotsToClasses<"base" | "title" | "description" | "selectedIcon" | "wrapper" | "shortcut">; // Classes for listbox item slots
