@@ -52,7 +52,13 @@ export default function DocsLayout({
     { name: "Table", href: "/docs/vkx-table" },
     { name: "Tooltip", href: "/docs/vkx-tooltip" },
   ];
-  const layoutComponents: NavigationModels[] = [];
+  const layoutComponents: NavigationModels[] = [
+    { name: "Breadcrumbs", href: "/docs/vkx-breadcrumbs" },
+    { name: "Card", href: "/docs/vkx-card" },
+    { name: "Dropdown", href: "/docs/vkx-dropdown" },
+    { name: "Navbar", href: "/docs/vkx-navbar" },
+    { name: "Tabs", href: "/docs/vkx-tabs" },
+  ];
   const notificationComponents: NavigationModels[] = [];
   const displayComponents: NavigationModels[] = [
     { name: "Accordion", href: "/docs/vkx-accordion" },
