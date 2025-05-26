@@ -1,17 +1,7 @@
-import { Form as HeroUIForm } from "@heroui/react";
+import { FormProps, Form as HeroUIForm } from "@heroui/react";
 import React, { ReactNode, CSSProperties, FormHTMLAttributes } from "react";
 
-export interface VkxFormProps
-  extends Omit<
-    FormHTMLAttributes<HTMLFormElement>,
-    | "action"
-    | "encType"
-    | "method"
-    | "target"
-    | "autoComplete"
-    | "autoCapitalize"
-    | "style"
-  > {
+export interface VkxFormProps extends FormProps {
   children: ReactNode;
   validationBehavior?: "native" | "aria";
   validationErrors?: Record<string, string | string[]>;
@@ -28,7 +18,6 @@ export interface VkxFormProps
   className?: string;
   style?: CSSProperties;
 }
-
 
 export const VkxForm: React.FC<VkxFormProps> = ({
   children,
@@ -47,17 +36,17 @@ export const VkxForm: React.FC<VkxFormProps> = ({
 }) => {
   return (
     <HeroUIForm
-      className={className}
-      validationBehavior={validationBehavior}
-      validationErrors={validationErrors}
       action={action}
+      autoCapitalize={autoCapitalize}
+      autoComplete={autoComplete}
+      className={className}
       encType={encType}
       method={method}
       role={role}
-      target={target}
-      autoComplete={autoComplete}
-      autoCapitalize={autoCapitalize}
       style={style}
+      target={target}
+      validationBehavior={validationBehavior}
+      validationErrors={validationErrors}
       {...props}
     >
       {children}

@@ -1,19 +1,27 @@
 import { Input } from "@heroui/input";
 
 import { VkxInputProps } from "./vkx-input-props";
+import React from "react";
 
 export const VkxInput: React.FC<VkxInputProps> = ({
+  accept,
   children,
-  className, 
+  className,
   defaultValue,
   description,
   endContent,
   errorMessage,
+  errors,
+  errorRequiredMessage,
+  errorInvalidMessage,
   isDisabled,
   isInvalid,
   isRequired,
   label,
   labelPlacement,
+  min,
+  max,
+  maxLength,
   name,
   onClear,
   onValueChange,
@@ -24,10 +32,35 @@ export const VkxInput: React.FC<VkxInputProps> = ({
   type = "text",
   value,
   validate,
+  ...props
 }) => {
+  // const validateBase = (
+  //   value: string
+  // ): ValidationError | true | null | undefined => {
+  //   let errorMessages: string[] = [];
+  //   if (validate) {
+  //     var res = validate(value);
+  //     errorMessages.push(res);
+  //   }
+  //   if (isRequired && value && errorRequiredMessage)
+  //     errorMessages.push(errorRequiredMessage);
+  //   if (isInvalid && errorInvalidMessage) {
+  //     errorMessages.push(errorInvalidMessage);
+  //   }
+
+  //   return errorMessages;
+  // };
+
+  // const [errorMessages, setErrorMessages] = React.useState<string[]>([]);
+
+  // const onValueChangeBase = (value: string) => {
+  //   if (onValueChange) onValueChange(value);
+  //   if (value && errorRequiredMessage) errorMessages.push(errorRequiredMessage);
+  // };
   return (
     <Input
-      className={className} 
+      accept={accept}
+      className={className}
       defaultValue={defaultValue}
       description={description}
       endContent={endContent}
@@ -37,16 +70,20 @@ export const VkxInput: React.FC<VkxInputProps> = ({
       isRequired={isRequired}
       label={label}
       labelPlacement={labelPlacement}
+      max={max}
+      maxLength={maxLength}
+      min={min}
+      name={name}
+      pattern={pattern}
       placeholder={placeholder}
       readOnly={readOnly}
-      type={type}
-      pattern={pattern}
       required={required}
-      value={value}
+      type={type}
       validate={validate}
-      name={name}
+      value={value}
       onClear={onClear}
       onValueChange={onValueChange}
+      {...props}
     >
       {children}
     </Input>

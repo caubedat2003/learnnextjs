@@ -1,8 +1,8 @@
-import { DatePicker, DateValue } from "@heroui/react";
+import { DatePicker, DatePickerProps, DateValue } from "@heroui/react";
 import { ValidationResult } from "@react-types/shared";
 import React, { ReactNode } from "react";
 
-export interface VkxDatePickerProps {
+export interface VkxDatePickerProps extends DatePickerProps {
   label?: string;
   placeholder?: DateValue | null;
   value?: DateValue | null;
@@ -53,14 +53,14 @@ export const VkxDatePicker: React.FC<VkxDatePickerProps> = ({
       isDisabled={isDisabled}
       isInvalid={isInvalid}
       isReadOnly={isReadOnly}
-      label={label}      
+      label={label}
       maxValue={maxValue}
       minValue={minValue}
-      onChange={onChange}
       placeholderValue={placeholder}
       showMonthAndYearPickers={showMonthAndYearPickers}
       value={value}
       visibleMonths={visibleMonths}
+      onChange={onChange}
       {...props}
     />
   );
