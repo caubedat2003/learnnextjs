@@ -1,135 +1,210 @@
 "use client";
 
-import React, { useState } from "react";
+import { useCallback, useState } from "react";
 import {
-  Navbar as HNavbar,
+  Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
-} from "@heroui/navbar";
+} from "@heroui/react";
+
+export interface VKXNavbarMenuItem {
+  id: React.Key;
+  label: React.ReactNode;
+  href?: string;
+  onClick?: () => void;
+  isDisabled?: boolean;
+  className?: string;
+}
 
 export interface VKXNavbarItem {
-  isActive?: boolean;
-  children: React.ReactNode;
-  onClick?: () => void;
+  id: React.Key;
+  content: React.ReactNode;
+  hideOnMobile?: boolean;
+  className?: string;
 }
 
 export interface VKXNavbarProps {
-  //#region Properties
+  // Navbar props
   className?: string;
-  position?: "static" | "sticky";
-  maxWidth: "sm" | "md" | "lg" | "xl" | "2xl" | "full";
-  height: string | number;
+  classNames?: {
+    base?: string;
+    wrapper?: string;
+    brand?: string;
+    content?: string;
+    toggle?: string;
+    toggleIcon?: string;
+    menu?: string;
+    menuItem?: string;
+  };
+  height?: string | number;
   isBordered?: boolean;
-  //#endregion
-  //#region Start
-  startClassName?: string;
-  startBrand?: React.ReactNode;
-  //#endregion
-  //#region Center
-  centerClassName?: string;
-  centerItems?: Array<VKXNavbarItem>;
-  //#endregion
-  //#region End
-  endClassName?: string;
-  endItems?: Array<VKXNavbarItem>;
-  //#endregion
-  //#region Menu
+  isBlurred?: boolean;
+  maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl" | "full";
+  position?: "static" | "sticky";
+  shouldHideOnScroll?: boolean;
   isMenuOpen?: boolean;
-  onMenuToggle?: (isOpen: boolean) => void;
-  menuItems?: VKXNavbarItem[];
-  //#endregion
-}
-export default function VKXNavbar({
-  //#region Properties
-  className,
-  position = "static",
-  maxWidth = "lg",
-  height = "4rem",
-  isBordered = false,
-  //#endregion
-  //#region Brand
-  startClassName,
-  startBrand,
-  //#endregion
-  //#region Center
-  centerClassName,
-  centerItems = [],
-  //#endregion
-  //#region End
-  endClassName,
-  endItems = [],
-  //#endregion
-  //#region Menu
-  menuItems = [],
-  //#endregion
-}: VKXNavbarProps) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  disableAnimation?: boolean;
+  disableScrollHandler?: boolean;
+  motionProps?: any;
 
-  const hasCenter = centerItems.length > 0;
-  const hasEnd = endItems.length > 0;
-  const hasMenu = menuItems.length > 0;
+  // Brand props
+  brand?: {
+    content: React.ReactNode;
+    href?: string;
+    onClick?: () => void;
+    className?: string;
+  };
+
+  // Nav desktop
+  leftItems?: VKXNavbarItem[];
+  centerItems?: VKXNavbarItem[];
+  rightItems?: VKXNavbarItem[];
+
+  // Menu mobile
+  menuItems?: VKXNavbarMenuItem[];
+
+  // Toggle menu
+  showMenuToggle?: boolean;
+
+  // Event
+  onMenuOpenChange?: (isOpen: boolean) => void;
+}
+
+export default function VKXNavbar({
+  className,
+  classNames,
+  height,
+  isBordered = false,
+  isBlurred = true,
+  maxWidth = "lg",
+  position = "sticky",
+  shouldHideOnScroll = false,
+  isMenuOpen,
+  disableAnimation = false,
+  disableScrollHandler = false,
+  motionProps,
+  brand,
+  leftItems = [],
+  centerItems = [],
+  rightItems = [],
+  menuItems = [],
+  showMenuToggle = true,
+  onMenuOpenChange,
+  ...props
+}: VKXNavbarProps) {
+  const [isMenuOpenState, setIsMenuOpenState] = useState(false);
+
+  const handleMenuToggle = useCallback(
+    (isOpen: boolean) => {
+      setIsMenuOpenState(isOpen);
+      onMenuOpenChange?.(isOpen);
+    },
+    [onMenuOpenChange]
+  );
+
+  const renderNavbarItems = (items: VKXNavbarItem[]) => {
+    return items.map((item) => (
+      <NavbarItem key={item.id} className={item.className} isActive={false}>
+        {item.content}
+      </NavbarItem>
+    ));
+  };
 
   return (
-    <HNavbar
+    <Navbar
       className={className}
+      classNames={classNames}
+      disableAnimation={disableAnimation}
+      disableScrollHandler={disableScrollHandler}
       height={height}
+      isBlurred={isBlurred}
       isBordered={isBordered}
+      isMenuOpen={isMenuOpen ?? isMenuOpenState}
       maxWidth={maxWidth}
+      motionProps={motionProps}
       position={position}
-      onMenuOpenChange={setIsMenuOpen}
+      shouldHideOnScroll={shouldHideOnScroll}
+      onMenuOpenChange={handleMenuToggle}
+      {...props}
     >
-      {/* Start */}
-      <NavbarContent className={startClassName} justify="start">
-        {hasMenu && (
-          <NavbarMenuToggle
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            className="sm:hidden"
-          />
-        )}
-        {startBrand && <NavbarBrand>{startBrand}</NavbarBrand>}
-      </NavbarContent>
-      {/* Center */}
-      {hasCenter && (
-        <NavbarContent className={centerClassName} justify="center">
-          {centerItems.map((item, index) => (
-            <NavbarItem key={index} isActive={item.isActive}>
-              {item.children}
-            </NavbarItem>
-          ))}
-        </NavbarContent>
-      )}
-      {/* End */}
-      {hasEnd && (
-        <NavbarContent className={endClassName} justify="end">
-          {endItems.map((item, index) => (
-            <NavbarItem
-              key={index}
-              isActive={item.isActive}
-              onClick={item.onClick}
+      {/* Brand */}
+      {brand && (
+        <NavbarBrand className={brand.className}>
+          {brand.href ? (
+            <a href={brand.href} onClick={brand.onClick}>
+              {brand.content}
+            </a>
+          ) : (
+            <button
+              type="button"
+              onClick={brand.onClick}
+              className={brand.onClick ? "cursor-pointer" : "cursor-default"}
             >
-              {item.children}
-            </NavbarItem>
-          ))}
+              {brand.content}
+            </button>
+          )}
+        </NavbarBrand>
+      )}
+
+      {/* Left Content */}
+      {leftItems.length > 0 && (
+        <NavbarContent className="hidden sm:flex gap-4" justify="start">
+          {renderNavbarItems(leftItems)}
         </NavbarContent>
       )}
-      {/* Mobile menu */}
-      {hasMenu && (
+
+      {/* Center Content */}
+      {centerItems.length > 0 && (
+        <NavbarContent className="hidden sm:flex gap-4" justify="center">
+          {renderNavbarItems(centerItems)}
+        </NavbarContent>
+      )}
+
+      {/* Right Content */}
+      {rightItems.length > 0 && (
+        <NavbarContent className="hidden sm:flex gap-4" justify="end">
+          {renderNavbarItems(rightItems)}
+        </NavbarContent>
+      )}
+
+      {/* Mobile Menu Toggle */}
+      {showMenuToggle && menuItems.length > 0 && (
+        <NavbarMenuToggle
+          aria-label={isMenuOpenState ? "Close menu" : "Open menu"}
+          className="sm:hidden"
+        />
+      )}
+
+      {/* Mobile Menu */}
+      {menuItems.length > 0 && (
         <NavbarMenu>
-          {menuItems.map((item, index) => (
-            <NavbarMenuItem
-              key={`menu-${index}`}
-              isActive={item.isActive}
-              onClick={item.onClick}
-            >
-              {item.children}
+          {menuItems.map((item) => (
+            <NavbarMenuItem key={item.id} className={item.className}>
+              {item.href ? (
+                <a
+                  className={`w-full ${item.isDisabled ? "opacity-50 cursor-not-allowed" : ""}`}
+                  href={item.href}
+                  onClick={item.isDisabled ? undefined : item.onClick}
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <button
+                  className={`w-full text-left ${item.isDisabled ? "opacity-50 cursor-not-allowed" : ""}`}
+                  disabled={item.isDisabled}
+                  onClick={item.isDisabled ? undefined : item.onClick}
+                >
+                  {item.label}
+                </button>
+              )}
             </NavbarMenuItem>
           ))}
         </NavbarMenu>
       )}
-    </HNavbar>
+    </Navbar>
   );
 }

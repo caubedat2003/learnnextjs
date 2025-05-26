@@ -56,11 +56,13 @@ export function VKXDropdown({
   sections = [],
   disabledKeys = [],
   onAction,
+  ...props
 }: VKXDropdownProps) {
   return (
     <Dropdown
       className={className}
       isDisabled={isDisabled}
+      {...props}
     >
       <DropdownTrigger>{triggerNode}</DropdownTrigger>
       <DropdownMenu

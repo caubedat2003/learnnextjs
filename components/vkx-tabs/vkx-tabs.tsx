@@ -60,6 +60,7 @@ export function VKXTabs({
   destroyInactiveTabPanel = false,
   items,
   onSelectionChange,
+  ...props
 }: VKXTabsProps) {
   return (
     <Tabs
@@ -82,6 +83,7 @@ export function VKXTabs({
       size={size}
       variant={variant}
       onSelectionChange={onSelectionChange}
+      {...props}
     >
       {items.map((item) => (
         <Tab key={item.id} title={item.label}>

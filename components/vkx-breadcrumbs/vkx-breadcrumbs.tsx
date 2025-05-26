@@ -75,6 +75,7 @@ export function VKXBreadcrumbs({
   itemClasses,
   classNames,
   onAction,
+  ...props
 }: VKXBreadcrumbs) {
   return (
     <Breadcrumbs
@@ -93,6 +94,7 @@ export function VKXBreadcrumbs({
       underline={underline}
       variant={variant}
       onAction={onAction}
+      {...props}
     >
       {items.map((item) => (
         <BreadcrumbItem

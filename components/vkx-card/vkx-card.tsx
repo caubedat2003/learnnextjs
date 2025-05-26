@@ -52,6 +52,7 @@ export function VKXCard({
   children,
   footerClassName,
   footer,
+  ...props
 }: VKXCardProps) {
   return (
     <Card
@@ -72,6 +73,7 @@ export function VKXCard({
       onPressEnd={onPressEnd}
       onPressChange={onPressChange}
       onPressUp={onPressUp}
+      {...props}
     >
       {header && <CardHeader className={headerClassName}>{header}</CardHeader>}
       <CardBody className={bodyClassName}>
