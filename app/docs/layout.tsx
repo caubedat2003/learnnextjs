@@ -6,6 +6,59 @@ import { usePathname } from "next/navigation";
 
 import { VkxAccordion } from "@/components/vkx-accordion/vkx-accordion";
 import { NavigationModels } from "@/models/navigation-models";
+import { VkxLink } from "@/components/vkx-link/vkx-link";
+
+const formComponents: NavigationModels[] = [
+  { name: "Autocomplete", href: "/docs/vkx-autocomplete" },
+  { name: "Button", href: "/docs/vkx-button" },
+  { name: "Checkbox", href: "/docs/vkx-checkbox" },
+  { name: "Calendar", href: "/docs/vkx-calendar" },
+
+  { name: "CheckboxGroup", href: "/docs/vkx-checkbox-group" },
+  { name: "DatePicker", href: "/docs/vkx-date-picker" },
+  { name: "DateInput", href: "/docs/vkx-date-input" },
+  { name: "MonthInput", href: "/docs/vkx-month-input" },
+
+  { name: "NumberInput", href: "/docs/vkx-number-input" },
+  { name: "YearInput", href: "/docs/vkx-year-input" },
+
+  { name: "DateRangePicker", href: "/docs/vkx-date-range-picker" },
+
+  { name: "Form", href: "/docs/vkx-form" },
+  { name: "FileInput", href: "/docs/vkx-file-input" },
+
+  { name: "Input", href: "/docs/vkx-input" },
+  { name: "Link", href: "/docs/vkx-link" },
+  { name: "Popover", href: "/docs/vkx-popover" },
+  { name: "PasswordInput", href: "/docs/vkx-password-input" },
+  { name: "RadioGroup", href: "/docs/vkx-radio-group" },
+  { name: "RangeCalender", href: "/docs/vkx-range-calender" },
+
+  { name: "Select", href: "/docs/vkx-select" },
+  { name: "SearchInput", href: "/docs/vkx-search-input" },
+  { name: "Switch", href: "/docs/vkx-switch" },
+  { name: "Slider", href: "/docs/vkx-slider" },
+  { name: "Snippet", href: "/docs/vkx-snippet" },
+  { name: "Skeleton", href: "/docs/vkx-skeleton" },
+
+  { name: "TextArea", href: "/docs/vkx-text-area" },
+  { name: "TimeInput", href: "/docs/vkx-time-input" },
+
+  { name: "Table", href: "/docs/vkx-table" },
+  { name: "Tooltip", href: "/docs/vkx-tooltip" },
+];
+
+const layoutComponents: NavigationModels[] = [
+  { name: "Breadcrumbs", href: "/docs/vkx-breadcrumbs" },
+  { name: "Card", href: "/docs/vkx-card" },
+  { name: "Dropdown", href: "/docs/vkx-dropdown" },
+  { name: "Navbar", href: "/docs/vkx-navbar" },
+  { name: "Tabs", href: "/docs/vkx-tabs" },
+];
+const notificationComponents: NavigationModels[] = [];
+const displayComponents: NavigationModels[] = [
+  { name: "Accordion", href: "/docs/vkx-accordion" },
+];
 
 export default function DocsLayout({
   children,
@@ -14,55 +67,6 @@ export default function DocsLayout({
 }) {
   const pathname = usePathname();
 
-  const formComponents: NavigationModels[] = [
-    { name: "Autocomplete", href: "/docs/vkx-autocomplete" },
-    { name: "Button", href: "/docs/vkx-button" },
-    { name: "Checkbox", href: "/docs/vkx-checkbox" },
-    { name: "Calendar", href: "/docs/vkx-calendar" },
-
-    { name: "CheckboxGroup", href: "/docs/vkx-checkbox-group" },
-    { name: "DatePicker", href: "/docs/vkx-date-picker" },
-    { name: "DateInput", href: "/docs/vkx-date-input" },
-    { name: "MonthPicker", href: "/docs/vkx-month-picker" },
-    { name: "NumberInput", href: "/docs/vkx-number-input" },
-    { name: "YearPicker", href: "/docs/vkx-year-picker" },
-
-    { name: "DateRangePicker", href: "/docs/vkx-date-range-picker" },
-
-    { name: "Form", href: "/docs/vkx-form" },
-    { name: "FileInput", href: "/docs/vkx-file-input" },
-
-    { name: "Input", href: "/docs/vkx-input" },
-    { name: "Link", href: "/docs/vkx-link" },
-    { name: "Popover", href: "/docs/vkx-popover" },
-    { name: "PasswordInput", href: "/docs/vkx-password-input" },
-    { name: "RadioGroup", href: "/docs/vkx-radio-group" },
-    { name: "RangeCalender", href: "/docs/vkx-range-calender" },
-
-    { name: "Select", href: "/docs/vkx-select" },
-    { name: "SearchInput", href: "/docs/vkx-search-input" },
-    { name: "Switch", href: "/docs/vkx-switch" },
-    { name: "Slider", href: "/docs/vkx-slider" },
-    { name: "Snippet", href: "/docs/vkx-snippet" },
-    { name: "Skeleton", href: "/docs/vkx-skeleton" },
-
-    { name: "TextArea", href: "/docs/vkx-text-area" },
-    { name: "TimeInput", href: "/docs/vkx-time-input" },
- 
-    { name: "Table", href: "/docs/vkx-table" },
-    { name: "Tooltip", href: "/docs/vkx-tooltip" },
-  ];
-  const layoutComponents: NavigationModels[] = [
-    { name: "Breadcrumbs", href: "/docs/vkx-breadcrumbs" },
-    { name: "Card", href: "/docs/vkx-card" },
-    { name: "Dropdown", href: "/docs/vkx-dropdown" },
-    { name: "Navbar", href: "/docs/vkx-navbar" },
-    { name: "Tabs", href: "/docs/vkx-tabs" },
-  ];
-  const notificationComponents: NavigationModels[] = [];
-  const displayComponents: NavigationModels[] = [
-    { name: "Accordion", href: "/docs/vkx-accordion" },
-  ];
   return (
     <div className="flex">
       {/* Sidebar */}
@@ -93,7 +97,7 @@ export default function DocsLayout({
                       children: (
                         <nav className="flex flex-col gap-1">
                           {formComponents.map((item) => (
-                            <Link
+                            <VkxLink
                               key={item.name}
                               className={clsx(
                                 "px-3 py-2 rounded-lg transition-colors",
@@ -112,7 +116,7 @@ export default function DocsLayout({
                                   </span>
                                 )}
                               </div>
-                            </Link>
+                            </VkxLink>
                           ))}
                         </nav>
                       ),

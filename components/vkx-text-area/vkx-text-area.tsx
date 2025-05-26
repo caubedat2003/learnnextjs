@@ -13,6 +13,7 @@ export interface VkxTextAreaProps extends TextAreaProps {
   labelPlacement?: "inside" | "outside" | "outside-left";
   maxRows?: number;
   minRows?: number;
+  hideScrollbar?: boolean;
   onValueChange?: (value: string) => void;
   placeholder?: string;
   readOnly?: boolean;
@@ -25,6 +26,7 @@ export const VkxTextArea: React.FC<VkxTextAreaProps> = ({
   description,
   disableAutosize,
   errorMessage,
+  hideScrollbar,
   isDisabled,
   isInvalid,
   label,
