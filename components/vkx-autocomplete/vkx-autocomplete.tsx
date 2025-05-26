@@ -1,7 +1,12 @@
 "use client";
 
 import React, { ReactNode } from "react";
-import { Autocomplete, AutocompleteItem } from "@heroui/react";
+import {
+  Autocomplete,
+  AutocompleteItem,
+  ScrollShadowProps,
+} from "@heroui/react";
+import { Key } from "@react-types/shared";
 
 export interface VkxAutocompleteOption {
   textValue: string;
@@ -10,7 +15,7 @@ export interface VkxAutocompleteOption {
   startContent?: ReactNode;
 }
 
-export interface VkxScrollShadowProps {
+export interface VkxScrollShadowProps extends ScrollShadowProps {
   isEnabled?: boolean;
 }
 
@@ -30,9 +35,9 @@ interface VkxAutocompleteProps {
   isDisabled?: boolean;
   isRequired?: boolean;
   label?: string;
-  onClose?: (value: boolean) => void;
-  onInputChange?: (value: any) => void;
-  onSelectionChange?: (value: any) => void;
+  onClose?: () => void | undefined;
+  onInputChange?: (value: string) => void | undefined;
+  onSelectionChange?: ((key: Key | null) => void) | undefined;
   options: VkxAutocompleteOption[];
   placeholder?: string;
   readOnly?: boolean;
@@ -41,7 +46,7 @@ interface VkxAutocompleteProps {
   size?: "sm" | "md" | "lg";
   startContent?: ReactNode;
   variant?: "flat" | "bordered" | "underlined" | "faded";
-  vkxScrollShadowProps?: VkxScrollShadowProps;
+  scrollShadowProps?: VkxScrollShadowProps;
 }
 
 export function VkxAutocomplete({
@@ -65,13 +70,9 @@ export function VkxAutocomplete({
   size,
   startContent,
   variant,
-  vkxScrollShadowProps,
+  scrollShadowProps,
+  ...props
 }: VkxAutocompleteProps) {
-  // Adapt onClose to match Autocomplete's expected signature
-  const handleClose = () => {
-    if (onClose) onClose(false);
-  };
-
   return (
     <Autocomplete
       allowsCustomValue={allowsCustomValue}
@@ -83,16 +84,18 @@ export function VkxAutocomplete({
       isDisabled={isDisabled}
       isRequired={isRequired}
       label={label}
-      onClose={handleClose}
-      onInputChange={onInputChange}
-      onSelectionChange={onSelectionChange}
       placeholder={placeholder}
       readOnly={readOnly}
+      scrollShadowProps={scrollShadowProps}
       selectedKey={selectedKey}
       selectorIcon={selectorIcon}
       size={size}
       startContent={startContent}
       variant={variant}
+      onClose={onClose}
+      onInputChange={onInputChange}
+      onSelectionChange={onSelectionChange}
+      {...props}
     >
       {options.map((option) => (
         <AutocompleteItem

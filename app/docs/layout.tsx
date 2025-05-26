@@ -46,7 +46,13 @@ export default function DocsLayout({
     { name: "Table", href: "/docs/vkx-table" },
     { name: "Tooltip", href: "/docs/vkx-tooltip" },
   ];
-  const layoutComponents: NavigationModels[] = [];
+  const layoutComponents: NavigationModels[] = [
+    { name: "Breadcrumbs", href: "/docs/vkx-breadcrumbs" },
+    { name: "Card", href: "/docs/vkx-card" },
+    { name: "Dropdown", href: "/docs/vkx-dropdown" },
+    { name: "Navbar", href: "/docs/vkx-navbar" },
+    { name: "Tabs", href: "/docs/vkx-tabs" },
+  ];
   const notificationComponents: NavigationModels[] = [];
   const displayComponents: NavigationModels[] = [
     { name: "Accordion", href: "/docs/vkx-accordion" },
@@ -60,7 +66,6 @@ export default function DocsLayout({
           overflow-y-auto fixed left-0 top-16 dark:bg-black border-r border-divider"
       >
         <VkxAccordion
-          className="pb-16"
           accordionItems={[
             {
               key: "component",
@@ -70,7 +75,7 @@ export default function DocsLayout({
                 </p>
               ),
               children: (
-                <VkxAccordion                  
+                <VkxAccordion
                   accordionItems={[
                     // Form components
                     {
@@ -217,6 +222,7 @@ export default function DocsLayout({
               ),
             },
           ]}
+          className="pb-16"
           defaultExpandedKeys={new Set(["component"])}
         />
       </div>

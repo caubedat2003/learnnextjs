@@ -1,7 +1,7 @@
-import { Textarea } from "@heroui/react";
+import { Textarea, TextAreaProps } from "@heroui/react";
 import React, { ReactNode } from "react";
 
-export interface VkxTextAreaProps {
+export interface VkxTextAreaProps extends TextAreaProps {
   className?: string;
   defaultValue?: string;
   description?: string;
@@ -35,6 +35,7 @@ export const VkxTextArea: React.FC<VkxTextAreaProps> = ({
   placeholder,
   readOnly,
   value,
+  ...props
 }) => {
   return (
     <Textarea
@@ -49,10 +50,11 @@ export const VkxTextArea: React.FC<VkxTextAreaProps> = ({
       labelPlacement={labelPlacement}
       maxRows={maxRows}
       minRows={minRows}
-      onValueChange={onValueChange}
       placeholder={placeholder}
       readOnly={readOnly}
       value={value}
+      onValueChange={onValueChange}
+      {...props}
     />
   );
 };
