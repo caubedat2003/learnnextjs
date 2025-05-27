@@ -53,7 +53,10 @@ export default function DocsLayout({
     { name: "Navbar", href: "/docs/vkx-navbar" },
     { name: "Tabs", href: "/docs/vkx-tabs" },
   ];
-  const notificationComponents: NavigationModels[] = [];
+  const notificationComponents: NavigationModels[] = [
+    { name: "Circular Progress", href: "/docs/vkx-circular-progress" },
+    { name: "Spinner", href: "/docs/vkx-spinner" }
+  ];
   const displayComponents: NavigationModels[] = [
     { name: "Accordion", href: "/docs/vkx-accordion" },
   ];
