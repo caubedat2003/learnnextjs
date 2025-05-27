@@ -142,6 +142,29 @@ export default function VkxTextAreaPage() {
           placeholder="Nhập nội dung..."
         />
       </div>
+{/* 
+      <div>
+        <h1 className="text-xl font-medium text-black dark:text-white mb-2">
+          9. Ẩn scroll
+        </h1>
+        <VkxTextArea
+          className="overflow-visible"
+          minRows={4}
+          placeholder="Nhập nội dung..."
+        />
+      </div> */}
+
+      <div>
+        <h1 className="text-xl font-medium text-black dark:text-white mb-2">
+          10. Có nút clear button
+        </h1>
+        <VkxTextArea
+          label="Nhập ghi chú của bạn"
+          minRows={4}
+          placeholder="Nhập nội dung..."
+          onClear={() => {}}
+        />
+      </div>
 
       <div className="mt-12">
         <h1 className="text-2xl font-medium text-black dark:text-white mb-6">
