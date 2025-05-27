@@ -58,7 +58,12 @@ const layoutComponents: NavigationModels[] = [
   { name: "Spacer", href: "/docs/vkx-spacer" },
   { name: "Listbox", href: "/docs/vkx-listbox" },
 ];
-const notificationComponents: NavigationModels[] = [];
+const notificationComponents: NavigationModels[] = [
+  { name: "Alert", href: "/docs/vkx-alert" },
+  { name: "Spinner", href: "/docs/vkx-spinner" },
+  { name: "Progress", href: "/docs/vkx-progress" },
+  { name: "Circular progress", href: "/docs/vkx-circular-progress" },
+];
 const displayComponents: NavigationModels[] = [
   { name: "Accordion", href: "/docs/vkx-accordion" },
   { name: "Modal", href: "/docs/vkx-modal" },
@@ -70,25 +75,6 @@ export default function DocsLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-    { name: "Table", href: "/docs/vkx-table" },
-    { name: "Tooltip", href: "/docs/vkx-tooltip" },
-  ];
-  const layoutComponents: NavigationModels[] = [
-    { name: "Breadcrumbs", href: "/docs/vkx-breadcrumbs" },
-    { name: "Card", href: "/docs/vkx-card" },
-    { name: "Dropdown", href: "/docs/vkx-dropdown" },
-    { name: "Navbar", href: "/docs/vkx-navbar" },
-    { name: "Tabs", href: "/docs/vkx-tabs" },
-  ];
-  const notificationComponents: NavigationModels[] = [
-    { name: "Circular Progress", href: "/docs/vkx-circular-progress" },
-    { name: "Spinner", href: "/docs/vkx-spinner" },
-    { name: "Progress", href: "/docs/vkx-progress" },
-    { name: "Alert", href: "/docs/vkx-alert" },
-  ];
-  const displayComponents: NavigationModels[] = [
-    { name: "Accordion", href: "/docs/vkx-accordion" },
-  ];
 
   return (
     <div className="flex">
