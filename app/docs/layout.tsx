@@ -55,7 +55,9 @@ export default function DocsLayout({
   ];
   const notificationComponents: NavigationModels[] = [
     { name: "Circular Progress", href: "/docs/vkx-circular-progress" },
-    { name: "Spinner", href: "/docs/vkx-spinner" }
+    { name: "Spinner", href: "/docs/vkx-spinner" },
+    { name: "Progress", href: "/docs/vkx-progress" },
+    { name: "Alert", href: "/docs/vkx-alert" },
   ];
   const displayComponents: NavigationModels[] = [
     { name: "Accordion", href: "/docs/vkx-accordion" },

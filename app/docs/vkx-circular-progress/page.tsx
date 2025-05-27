@@ -13,6 +13,7 @@ import {
 export default function Page() {
   return (
     <div className="min-h-screen space-y-8">
+      <h1 className="mb-8 text-3xl font-bold text-gray-800">Circular Progress Examples</h1>
       {/* Label Example */}
       <div className="space-y-4">
         <h2 className="text-xl font-bold">Label</h2>
@@ -98,101 +99,107 @@ export default function Page() {
           valueLabel={<span className="text-sm text-gray-600">25/100</span>}
         />
       </div>
-      <Table className="mb-10">
-        <TableHeader>
-          <TableColumn>Prop</TableColumn>
-          <TableColumn>Kiểu</TableColumn>
-          <TableColumn>Mặc định</TableColumn>
-          <TableColumn>Mô tả</TableColumn>
-        </TableHeader>
-        <TableBody>
-          <TableRow key="1">
-            <TableCell>label</TableCell>
-            <TableCell>React.ReactNode</TableCell>
-            <TableCell>-</TableCell>
-            <TableCell>Nội dung hiển thị phía dưới thanh tiến trình</TableCell>
-          </TableRow>
+      <section className="mb-10">
+        <h2 className="mb-4 text-xl font-semibold text-gray-700">API(Props)</h2>
 
-          <TableRow key="2">
-            <TableCell>size</TableCell>
-            <TableCell>sm | md | lg</TableCell>
-            <TableCell>md</TableCell>
-            <TableCell>Kích thước component (nhỏ/trung bình/lớn)</TableCell>
-          </TableRow>
+        <Table className="mb-10">
+          <TableHeader>
+            <TableColumn>Prop</TableColumn>
+            <TableColumn>Kiểu</TableColumn>
+            <TableColumn>Mặc định</TableColumn>
+            <TableColumn>Mô tả</TableColumn>
+          </TableHeader>
+          <TableBody>
+            <TableRow key="1">
+              <TableCell>label</TableCell>
+              <TableCell>React.ReactNode</TableCell>
+              <TableCell>-</TableCell>
+              <TableCell>
+                Nội dung hiển thị phía dưới thanh tiến trình
+              </TableCell>
+            </TableRow>
 
-          <TableRow key="3">
-            <TableCell>color</TableCell>
-            <TableCell>
-              default | primary | secondary | success | warning | danger
-            </TableCell>
-            <TableCell>primary</TableCell>
-            <TableCell>Màu sắc của thanh tiến trình</TableCell>
-          </TableRow>
+            <TableRow key="2">
+              <TableCell>size</TableCell>
+              <TableCell>sm | md | lg</TableCell>
+              <TableCell>md</TableCell>
+              <TableCell>Kích thước component (nhỏ/trung bình/lớn)</TableCell>
+            </TableRow>
 
-          <TableRow key="4">
-            <TableCell>value</TableCell>
-            <TableCell>number</TableCell>
-            <TableCell>-</TableCell>
-            <TableCell>Giá trị tiến trình hiện tại (0-100)</TableCell>
-          </TableRow>
+            <TableRow key="3">
+              <TableCell>color</TableCell>
+              <TableCell>
+                default | primary | secondary | success | warning | danger
+              </TableCell>
+              <TableCell>primary</TableCell>
+              <TableCell>Màu sắc của thanh tiến trình</TableCell>
+            </TableRow>
 
-          <TableRow key="5">
-            <TableCell>valueLabel</TableCell>
-            <TableCell>React.ReactNode</TableCell>
-            <TableCell>-</TableCell>
-            <TableCell>Custom content hiển thị giá trị</TableCell>
-          </TableRow>
+            <TableRow key="4">
+              <TableCell>value</TableCell>
+              <TableCell>number</TableCell>
+              <TableCell>-</TableCell>
+              <TableCell>Giá trị tiến trình hiện tại (0-100)</TableCell>
+            </TableRow>
 
-          <TableRow key="6">
-            <TableCell>minValue</TableCell>
-            <TableCell>number</TableCell>
-            <TableCell>0</TableCell>
-            <TableCell>Giá trị tối thiểu của tiến trình</TableCell>
-          </TableRow>
+            <TableRow key="5">
+              <TableCell>valueLabel</TableCell>
+              <TableCell>React.ReactNode</TableCell>
+              <TableCell>-</TableCell>
+              <TableCell>Custom content hiển thị giá trị</TableCell>
+            </TableRow>
 
-          <TableRow key="7">
-            <TableCell>maxValue</TableCell>
-            <TableCell>number</TableCell>
-            <TableCell>100</TableCell>
-            <TableCell>Giá trị tối đa của tiến trình</TableCell>
-          </TableRow>
+            <TableRow key="6">
+              <TableCell>minValue</TableCell>
+              <TableCell>number</TableCell>
+              <TableCell>0</TableCell>
+              <TableCell>Giá trị tối thiểu của tiến trình</TableCell>
+            </TableRow>
 
-          <TableRow key="8">
-            <TableCell>isIndeterminate</TableCell>
-            <TableCell>boolean</TableCell>
-            <TableCell>false</TableCell>
-            <TableCell>Chế độ loading không xác định</TableCell>
-          </TableRow>
+            <TableRow key="7">
+              <TableCell>maxValue</TableCell>
+              <TableCell>number</TableCell>
+              <TableCell>100</TableCell>
+              <TableCell>Giá trị tối đa của tiến trình</TableCell>
+            </TableRow>
 
-          <TableRow key="9">
-            <TableCell>showValueLabel</TableCell>
-            <TableCell>boolean</TableCell>
-            <TableCell>true</TableCell>
-            <TableCell>Hiển thị nhãn giá trị mặc định</TableCell>
-          </TableRow>
+            <TableRow key="8">
+              <TableCell>isIndeterminate</TableCell>
+              <TableCell>boolean</TableCell>
+              <TableCell>false</TableCell>
+              <TableCell>Chế độ loading không xác định</TableCell>
+            </TableRow>
 
-          <TableRow key="10">
-            <TableCell>strokeWidth</TableCell>
-            <TableCell>number</TableCell>
-            <TableCell>-</TableCell>
-            <TableCell>Độ dày của thanh tiến trình</TableCell>
-          </TableRow>
+            <TableRow key="9">
+              <TableCell>showValueLabel</TableCell>
+              <TableCell>boolean</TableCell>
+              <TableCell>true</TableCell>
+              <TableCell>Hiển thị nhãn giá trị mặc định</TableCell>
+            </TableRow>
 
-          <TableRow key="11">
-            <TableCell>isDisabled</TableCell>
-            <TableCell>boolean</TableCell>
-            <TableCell>false</TableCell>
-            <TableCell>Vô hiệu hóa component</TableCell>
-          </TableRow>
+            <TableRow key="10">
+              <TableCell>strokeWidth</TableCell>
+              <TableCell>number</TableCell>
+              <TableCell>-</TableCell>
+              <TableCell>Độ dày của thanh tiến trình</TableCell>
+            </TableRow>
 
-          <TableRow key="12">
-            <TableCell>disableAnimation</TableCell>
-            <TableCell>boolean</TableCell>
-            <TableCell>false</TableCell>
-            <TableCell>Tắt tất cả hiệu ứng animation</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+            <TableRow key="11">
+              <TableCell>isDisabled</TableCell>
+              <TableCell>boolean</TableCell>
+              <TableCell>false</TableCell>
+              <TableCell>Vô hiệu hóa component</TableCell>
+            </TableRow>
+
+            <TableRow key="12">
+              <TableCell>disableAnimation</TableCell>
+              <TableCell>boolean</TableCell>
+              <TableCell>false</TableCell>
+              <TableCell>Tắt tất cả hiệu ứng animation</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </section>
     </div>
   );
 }
