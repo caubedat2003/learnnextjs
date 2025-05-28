@@ -48,7 +48,6 @@ const formComponents: NavigationModels[] = [
   { name: "Tooltip", href: "/docs/vkx-tooltip" },
 ];
 
-
 const layoutComponents: NavigationModels[] = [
   { name: "Breadcrumbs", href: "/docs/vkx-breadcrumbs" },
   { name: "Card", href: "/docs/vkx-card" },
@@ -236,6 +235,14 @@ export default function DocsLayout({
                       ),
                     },
                   ]}
+                  defaultExpandedKeys={
+                    new Set([
+                      "form-components",
+                      "layout-components",
+                      "notification-components",
+                      "display-components",
+                    ])
+                  }
                 ></VkxAccordion>
               ),
             },

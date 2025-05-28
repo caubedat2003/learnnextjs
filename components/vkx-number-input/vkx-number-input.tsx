@@ -1,6 +1,6 @@
-import { NumberInput } from "@heroui/number-input";
+import { NumberInput, NumberInputProps } from "@heroui/number-input";
 import React from "react";
-export interface VkxNumberInputProps {
+export interface VkxNumberInputProps extends NumberInputProps {
   className?: string;
   defaultValue?: number;
   value?: number;
@@ -16,12 +16,14 @@ export interface VkxNumberInputProps {
   minValue?: number;
   maxValue?: number;
   step?: number;
+  size?: "sm" | "md" | "lg" | undefined;
   formatOptions?: Intl.NumberFormatOptions;
   name?: string;
   hideStepper?: boolean;
   readOnly?: boolean;
   onValueChange?: (value: number) => void | undefined;
   onClear?: (() => void | undefined) | undefined;
+  
 }
 
 export const VkxNumberInput: React.FC<VkxNumberInputProps> = ({
@@ -40,6 +42,7 @@ export const VkxNumberInput: React.FC<VkxNumberInputProps> = ({
   minValue,
   maxValue,
   step,
+  size = "sm",
   name,
   formatOptions,
   hideStepper,
@@ -65,6 +68,7 @@ export const VkxNumberInput: React.FC<VkxNumberInputProps> = ({
       minValue={minValue}
       maxValue={maxValue}
       step={step}
+      size={size}
       name={name}
       formatOptions={formatOptions}
       readOnly={readOnly}

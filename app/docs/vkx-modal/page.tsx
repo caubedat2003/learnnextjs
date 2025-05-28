@@ -617,7 +617,7 @@ export default function VKXModalPage() {
 
 
 //icons
-export const MailIcon = (props: any) => {
+const MailIcon = (props: any) => {
     return (
         <svg
             aria-hidden="true"
@@ -637,7 +637,7 @@ export const MailIcon = (props: any) => {
     );
 };
 
-export const LockIcon = (props: any) => {
+ const LockIcon = (props: any) => {
     return (
         <svg
             aria-hidden="true"
