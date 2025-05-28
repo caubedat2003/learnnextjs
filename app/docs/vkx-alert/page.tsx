@@ -1,88 +1,292 @@
 "use client";
 
-import { Button } from "@heroui/button";
-import React from "react";
+import VKXAlert from "@/components/vkx-alert/vkx-alert";
+import {
+  CheckCircleIcon,
+  ExclamationTriangleIcon,
+  InformationCircleIcon,
+  XCircleIcon,
+  BellAlertIcon,
+  ShieldCheckIcon,
+} from "@heroicons/react/24/solid";
+import { useState } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+} from "@heroui/react";
 
-import { VkxAlert } from "@/components/vkx-alert/vkx-alert";
-
-export default function VkxAlertPage() {
-  const [isVisible, setIsVisible] = React.useState(true);
+export default function AlertPage() {
+  const [isVisible, setIsVisible] = useState(true);
 
   return (
-    <div className="">
-      {isVisible ? (
-        <div className="flex w-full flex-col gap-8">
-          <VkxAlert
+    <div className="min-h-screen">
+      <h1 className="mb-8 text-3xl font-bold text-gray-800">Alert Examples</h1>
+
+      {/* Basic Alert */}
+      <section className="mb-12">
+        <h2 className="mb-4 text-xl font-semibold text-gray-700">
+          Basic Alert
+        </h2>
+        <VKXAlert
+          title="Default Alert"
+          description="This is a basic alert with default settings"
+        />
+      </section>
+
+      {/* Color Variants */}
+      <section className="mb-12">
+        <h2 className="mb-4 text-xl font-semibold text-gray-700">Colors</h2>
+        <div className="flex flex-col gap-4">
+          <VKXAlert
             color="primary"
-            hideIconWrapper={false}
-            radius="md"
-            title="This is a default alert"
-            variant="bordered"
+            title="Primary Alert"
+            icon={<InformationCircleIcon className="w-5 h-5" />}
           />
-          <VkxAlert
+          <VKXAlert
             color="success"
-            description="Alerts are temporary notifications that provide concise feedback about an action or event."
-            endContent={<Button>Upgrade</Button>}
-            icon={<UserIcon />}
-            radius="md"
-            title="This is a default alert"
-            variant="bordered"
+            title="Success Alert"
+            icon={<CheckCircleIcon className="w-5 h-5" />}
           />
-          <VkxAlert
-            color="success"
-            description="Alerts are temporary notifications that provide concise feedback about an action or event."
-            endContent={<Button>Upgrade</Button>}
-            icon={<UserIcon />}
-            radius="md"
-            title="This is a default alert"
-            variant="bordered"
-            onClose={() => {
-              setIsVisible(false);
-            }}
+          <VKXAlert
+            color="warning"
+            title="Warning Alert"
+            icon={<ExclamationTriangleIcon className="w-5 h-5" />}
+          />
+          <VKXAlert
+            color="danger"
+            title="Danger Alert"
+            icon={<XCircleIcon className="w-5 h-5" />}
           />
         </div>
-      ) : (
-        <Button variant="bordered" onPress={() => setIsVisible(true)}>
-          Show Alert
-        </Button>
-      )}
+      </section>
+
+      {/* Variant Styles */}
+      <section className="mb-12">
+        <h2 className="mb-4 text-xl font-semibold text-gray-700">Variants</h2>
+        <div className="flex flex-col gap-4">
+          <VKXAlert variant="solid" color="success" title="Solid Alert" />
+          <VKXAlert variant="bordered" color="warning" title="Bordered Alert" />
+          <VKXAlert variant="faded" color="danger" title="Faded Alert" />
+        </div>
+      </section>
+
+      {/* Radius Examples */}
+      <section className="mb-12">
+        <h2 className="mb-4 text-xl font-semibold text-gray-700">
+          Border Radius
+        </h2>
+        <div className="flex flex-col gap-4">
+          <VKXAlert radius="none" title="No Radius" />
+          <VKXAlert radius="sm" title="Small Radius" />
+          <VKXAlert radius="lg" title="Large Radius" />
+          <VKXAlert radius="full" title="Full Radius" />
+        </div>
+      </section>
+
+      {/* Closable Alert */}
+      <section className="mb-12">
+        <h2 className="mb-4 text-xl font-semibold text-gray-700">
+          Closable Alert
+        </h2>
+        <VKXAlert
+          isClosable
+          color="warning"
+          title="Important Notice"
+          description="This alert can be closed"
+          icon={<BellAlertIcon className="w-5 h-5" />}
+          onClose={() => console.log("Alert closed")}
+        />
+      </section>
+
+      {/* Custom Content */}
+      <section className="mb-12">
+        <h2 className="mb-4 text-xl font-semibold text-gray-700">
+          Custom Content
+        </h2>
+        <VKXAlert
+          color="secondary"
+          startContent={<ShieldCheckIcon className="w-6 h-6 mr-2" />}
+          endContent={
+            <button className="px-3 py-1 text-sm bg-blue-100 rounded-lg">
+              Action
+            </button>
+          }
+          title="Security Alert"
+          description="Custom content on both sides"
+        />
+      </section>
+
+      {/* Controlled Visibility */}
+      <section className="mb-12">
+        <h2 className="mb-4 text-xl font-semibold text-gray-700">
+          Controlled Visibility
+        </h2>
+        {isVisible && (
+          <VKXAlert
+            isClosable
+            color="danger"
+            title="Dismissible Alert"
+            icon={<XCircleIcon className="w-5 h-5" />}
+            onClose={() => setIsVisible(false)}
+          />
+        )}
+      </section>
+
+      {/* Advanced Example */}
+      <section className="mb-12">
+        <h2 className="mb-4 text-xl font-semibold text-gray-700">
+          Combined Props
+        </h2>
+        <VKXAlert
+          variant="bordered"
+          color="danger"
+          radius="lg"
+          icon={<XCircleIcon className="w-6 h-6" />}
+          title="Critical Error"
+          description="Something went wrong. Please try again later."
+          isClosable
+          endContent={
+            <div className="flex gap-2 ml-4">
+              <button className="px-3 py-1 text-sm rounded-lg bg-red-50">
+                Retry
+              </button>
+              <button className="px-3 py-1 text-sm rounded-lg bg-gray-100">
+                Cancel
+              </button>
+            </div>
+          }
+        />
+      </section>
+      <section className="mb-10">
+        <h2 className="mb-4 text-xl font-semibold text-gray-700">API(Props)</h2>
+        <Table className="mb-10">
+          <TableHeader>
+            <TableColumn>Prop</TableColumn>
+            <TableColumn>Kiểu</TableColumn>
+            <TableColumn>Mặc định</TableColumn>
+            <TableColumn>Mô tả</TableColumn>
+          </TableHeader>
+          <TableBody>
+            <TableRow key="1">
+              <TableCell>title</TableCell>
+              <TableCell>React.ReactNode</TableCell>
+              <TableCell>-</TableCell>
+              <TableCell>Tiêu đề chính của alert</TableCell>
+            </TableRow>
+
+            <TableRow key="2">
+              <TableCell>icon</TableCell>
+              <TableCell>React.ReactNode</TableCell>
+              <TableCell>-</TableCell>
+              <TableCell>
+                Icon hiển thị bên trái (thường dùng icon từ thư viện bên ngoài)
+              </TableCell>
+            </TableRow>
+
+            <TableRow key="3">
+              <TableCell>description</TableCell>
+              <TableCell>React.ReactNode</TableCell>
+              <TableCell>-</TableCell>
+              <TableCell>Nội dung mô tả chi tiết</TableCell>
+            </TableRow>
+
+            <TableRow key="4">
+              <TableCell>color</TableCell>
+              <TableCell>
+                &quot;default&quot; | &quot;primary&quot; |
+                &quot;secondary&quot; | &quot;success&quot; |
+                &quot;warning&quot; | &quot;danger&quot;
+              </TableCell>
+              <TableCell>&quot;default&quot;</TableCell>
+              <TableCell>Màu sắc chủ đạo của alert</TableCell>
+            </TableRow>
+
+            <TableRow key="5">
+              <TableCell>variant</TableCell>
+              <TableCell>
+                &quot;solid&quot; | &quot;bordered&quot; | &quot;flat&quot; |
+                &quot;faded&quot;
+              </TableCell>
+              <TableCell>&quot;flat&quot;</TableCell>
+              <TableCell>Kiểu hiển thị của alert</TableCell>
+            </TableRow>
+
+            <TableRow key="6">
+              <TableCell>radius</TableCell>
+              <TableCell>
+                &quot;none&quot; | &quot;sm&quot; | &quot;md&quot; |
+                &quot;lg&quot; | &quot;full&quot;
+              </TableCell>
+              <TableCell>&quot;md&quot;</TableCell>
+              <TableCell>Độ bo góc viền</TableCell>
+            </TableRow>
+
+            <TableRow key="7">
+              <TableCell>startContent</TableCell>
+              <TableCell>React.ReactNode</TableCell>
+              <TableCell>-</TableCell>
+              <TableCell>
+                Nội dung tùy chỉnh bên trái (override icon mặc định)
+              </TableCell>
+            </TableRow>
+
+            <TableRow key="8">
+              <TableCell>endContent</TableCell>
+              <TableCell>React.ReactNode</TableCell>
+              <TableCell>-</TableCell>
+              <TableCell>Nội dung tùy chỉnh bên phải</TableCell>
+            </TableRow>
+
+            <TableRow key="9">
+              <TableCell>isVisible</TableCell>
+              <TableCell>boolean</TableCell>
+              <TableCell>-</TableCell>
+              <TableCell>
+                Điều khiển hiển thị alert (controlled component)
+              </TableCell>
+            </TableRow>
+
+            <TableRow key="10">
+              <TableCell>isClosable</TableCell>
+              <TableCell>boolean</TableCell>
+              <TableCell>false</TableCell>
+              <TableCell>Hiển thị nút đóng</TableCell>
+            </TableRow>
+
+            <TableRow key="11">
+              <TableCell>hideIcon</TableCell>
+              <TableCell>boolean</TableCell>
+              <TableCell>false</TableCell>
+              <TableCell>Ẩn icon mặc định</TableCell>
+            </TableRow>
+
+            <TableRow key="12">
+              <TableCell>hideIconWrapper</TableCell>
+              <TableCell>boolean</TableCell>
+              <TableCell>false</TableCell>
+              <TableCell>Ẩn cả khung chứa icon</TableCell>
+            </TableRow>
+
+            <TableRow key="13">
+              <TableCell>onClose</TableCell>
+              <TableCell>() =&gt; void</TableCell>
+              <TableCell>-</TableCell>
+              <TableCell>Callback khi click nút đóng</TableCell>
+            </TableRow>
+
+            <TableRow key="14">
+              <TableCell>onVisibleChange</TableCell>
+              <TableCell>(isVisible: boolean) =&gt; void</TableCell>
+              <TableCell>-</TableCell>
+              <TableCell>Callback khi trạng thái hiển thị thay đổi</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </section>
     </div>
   );
 }
-
-const UserIcon: React.FC<{
-  fill?: string;
-  size?: number;
-  height?: number;
-  width?: number;
-  [key: string]: any;
-}> = ({ fill = "currentColor", size, height, width, ...props }) => {
-  return (
-    <svg
-      data-name="Iconly/Curved/Profile"
-      height={size || height || 24}
-      viewBox="0 0 24 24"
-      width={size || width || 24}
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <g
-        fill="none"
-        stroke={fill}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeMiterlimit={10}
-        strokeWidth={1.5}
-      >
-        <path
-          d="M11.845 21.662C8.153 21.662 5 21.088 5 18.787s3.133-4.425 6.845-4.425c3.692 0 6.845 2.1 6.845 4.4s-3.134 2.9-6.845 2.9z"
-          data-name="Stroke 1"
-        />
-        <path
-          d="M11.837 11.174a4.372 4.372 0 10-.031 0z"
-          data-name="Stroke 3"
-        />
-      </g>
-    </svg>
-  );
-};

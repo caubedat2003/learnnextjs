@@ -58,7 +58,12 @@ const layoutComponents: NavigationModels[] = [
   { name: "Spacer", href: "/docs/vkx-spacer" },
   { name: "Listbox", href: "/docs/vkx-listbox" },
 ];
-const notificationComponents: NavigationModels[] = [];
+const notificationComponents: NavigationModels[] = [
+  { name: "Alert", href: "/docs/vkx-alert" },
+  { name: "Spinner", href: "/docs/vkx-spinner" },
+  { name: "Progress", href: "/docs/vkx-progress" },
+  { name: "Circular progress", href: "/docs/vkx-circular-progress" },
+];
 const displayComponents: NavigationModels[] = [
   { name: "Accordion", href: "/docs/vkx-accordion" },
   { name: "Modal", href: "/docs/vkx-modal" },
