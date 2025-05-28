@@ -10,14 +10,14 @@ export default function VkxSkeletonPage() {
         <h1 className="text-xl font-medium text-black dark:text-white">
           1. Skeleton cơ bản
         </h1>
-        <VkxSkeleton className="w-40 h-6" />
+        <VkxSkeleton className="w-40 h-6" isLoaded={false} />
       </div>
 
       <div>
         <h1 className="text-xl font-medium text-black dark:text-white">
           2. Skeleton avatar
         </h1>
-        <VkxSkeleton className="w-16 h-16 rounded-full" />
+        <VkxSkeleton className="w-16 h-16 rounded-full" isLoaded={false} />
       </div>
 
       <div>
@@ -25,9 +25,9 @@ export default function VkxSkeletonPage() {
           3. Skeleton text
         </h1>
         <div className="space-y-2">
-          <VkxSkeleton className="w-48 h-4" />
-          <VkxSkeleton className="w-40 h-4" />
-          <VkxSkeleton className="w-32 h-4" />
+          <VkxSkeleton className="w-48 h-4" isLoaded={false} />
+          <VkxSkeleton className="w-40 h-4" isLoaded={false} />
+          <VkxSkeleton className="w-32 h-4" isLoaded={false} />
         </div>
       </div>
 
@@ -35,21 +35,21 @@ export default function VkxSkeletonPage() {
         <h1 className="text-xl font-medium text-black dark:text-white">
           4. Skeleton hình tròn
         </h1>
-        <VkxSkeleton className="w-12 h-12 rounded-full" />
+        <VkxSkeleton className="w-12 h-12 rounded-full" isLoaded={false} />
       </div>
 
       <div>
         <h1 className="text-xl font-medium text-black dark:text-white">
           5. Skeleton với loading
         </h1>
-        <VkxSkeleton className="w-40 h-6" isLoaded />
+        <VkxSkeleton className="w-40 h-6" isLoaded={true} />
       </div>
 
       <div>
         <h1 className="text-xl font-medium text-black dark:text-white">
           6. Skeleton custom màu sắc
         </h1>
-        <VkxSkeleton className="w-40 h-6 bg-blue-300 dark:bg-blue-700">
+        <VkxSkeleton className="w-40 h-6 bg-blue-300 dark:bg-blue-700" isLoaded={false}>
           <div>Lưu Mạnh Cường</div>
         </VkxSkeleton>
       </div>

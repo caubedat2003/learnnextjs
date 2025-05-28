@@ -17,6 +17,7 @@ export interface VkxFormProps extends FormProps {
   autoCapitalize?: "off" | "none" | "on" | "sentences" | "words" | "characters";
   className?: string;
   style?: CSSProperties;
+  onInvalid?: React.FormEventHandler<HTMLFormElement>;
 }
 
 export const VkxForm: React.FC<VkxFormProps> = ({
@@ -32,6 +33,7 @@ export const VkxForm: React.FC<VkxFormProps> = ({
   autoComplete,
   autoCapitalize,
   style,
+  onInvalid, // add onInvalid support
   ...props
 }) => {
   return (
@@ -47,11 +49,10 @@ export const VkxForm: React.FC<VkxFormProps> = ({
       target={target}
       validationBehavior={validationBehavior}
       validationErrors={validationErrors}
+      onInvalid={onInvalid} // pass onInvalid to HeroUIForm
       {...props}
     >
       {children}
     </HeroUIForm>
   );
 };
-
-export default VkxForm;

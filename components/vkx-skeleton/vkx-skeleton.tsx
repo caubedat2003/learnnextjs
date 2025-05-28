@@ -7,9 +7,10 @@ export interface VkxSkeletonProps extends SkeletonProps {
 
 export const VkxSkeleton: React.FC<VkxSkeletonProps> = ({
   className,
+  isLoaded,
   ...props
 }) => {
-  return <Skeleton isLoaded className={className} {...props} />;
+  return <Skeleton isLoaded={isLoaded} className={className} {...props} />;
 };
 
 export default VkxSkeleton;

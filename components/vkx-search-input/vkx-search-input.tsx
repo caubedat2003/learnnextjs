@@ -16,6 +16,7 @@ export const VkxSearchInput: React.FC<VkxSearchInputProps> = ({
       type="search"
       startContent={startContent}
       isClearable
+      
       {...props}
     />
   );
