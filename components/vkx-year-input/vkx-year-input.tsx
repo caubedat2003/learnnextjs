@@ -32,7 +32,7 @@ function getSelectItems() {
     children: `Năm ${year}`,
   });
 
-  for (let i = 1; i <= 500; i++) {
+  for (let i = 1; i <= 20; i++) {
     years.push({
       key: `${year + i}`,
       children: `Năm ${year + i}`,
