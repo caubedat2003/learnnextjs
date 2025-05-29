@@ -6,8 +6,6 @@ import { VkxForm } from "@/components/vkx-form/vkx-form";
 import { VkxInput } from "@/components/vkx-input/vkx-input";
 import VkxButton from "@/components/vkx-button/vkx-button";
 import {
-  DatePicker,
-  Input,
   Table,
   TableBody,
   TableCell,
@@ -19,6 +17,7 @@ import { VkxSelect } from "@/components/vkx-select/vkx-select";
 import { VkxDatePicker } from "@/components/vkx-date-picker/vkx-date-picker";
 import { parseDate } from "@internationalized/date";
 import { VkxNumberInput } from "@/components/vkx-number-input/vkx-number-input";
+import { VkxPasswordInput } from "@/components/vkx-password-input/vkx-password-input";
 
 export default function VkxFormPage() {
   const [submitted, setSubmitted] = React.useState({});
@@ -94,7 +93,7 @@ export default function VkxFormPage() {
           validationErrors={validationErrors}
           onSubmit={handleLoginSubmit}
         >
-          <div>
+          <div className="max-w-sm">
             <VkxInput
               placeholder="Email"
               type="email"
@@ -107,8 +106,8 @@ export default function VkxFormPage() {
               </p>
             )}
           </div>
-          <div>
-            <VkxInput
+          <div className="max-w-sm">
+            <VkxPasswordInput
               placeholder="Password"
               type="password"
               value={formData.password}
@@ -173,57 +172,6 @@ export default function VkxFormPage() {
         <p className="text-xs text-gray-500 mt-1">
           Autocomplete is enabled for browser suggestions &amp; hints.
         </p>
-      </div>
-
-      <div>
-        <h1 className="text-xl font-medium text-black dark:text-white mb-2">
-          5. Form kết hợp với table
-        </h1>
-        <VkxForm autoComplete="on" className="">
-          <Table aria-label="Example static collection table">
-            <TableHeader>
-              <TableColumn>Họ và tên</TableColumn>
-              <TableColumn>Ngày sinh</TableColumn>
-              <TableColumn>Giới tính</TableColumn>
-              <TableColumn>Điểm thi</TableColumn>
-            </TableHeader>
-            <TableBody>
-              <TableRow key="1">
-                <TableCell>
-                  <VkxInput></VkxInput>
-                </TableCell>
-                <TableCell>
-                  <VkxDatePicker
-                    minValue={parseDate("1945-01-01")}
-                  ></VkxDatePicker>
-                </TableCell>
-                <TableCell>
-                  <VkxSelect
-                    selectItems={[
-                      {
-                        key: "1",
-                        children: "Nam",
-                      },
-                      {
-                        key: "2",
-                        children: "Nữ",
-                      },
-                      {
-                        key: "3",
-                        children: "Khác",
-                      },
-                    ]}
-                  ></VkxSelect>
-                </TableCell>
-                <TableCell>
-                  <VkxNumberInput minValue={0} maxValue={10}></VkxNumberInput>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </VkxForm>
-
-        <p className="text-xs text-gray-500 mt-1"></p>
       </div>
 
       <div className="mt-5">

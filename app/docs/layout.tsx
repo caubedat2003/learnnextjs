@@ -28,9 +28,12 @@ const formComponents: NavigationModels[] = [
   { name: "FileInput", href: "/docs/vkx-file-input" },
 
   { name: "Input", href: "/docs/vkx-input" },
+  { name: "IconButton", href: "/docs/vkx-icon-button" },
+
   { name: "Link", href: "/docs/vkx-link" },
   { name: "Popover", href: "/docs/vkx-popover" },
   { name: "PasswordInput", href: "/docs/vkx-password-input" },
+  { name: "PhoneInput", href: "/docs/vkx-phone-input" },
   { name: "RadioGroup", href: "/docs/vkx-radio-group" },
   { name: "RangeCalender", href: "/docs/vkx-range-calender" },
 
@@ -45,7 +48,10 @@ const formComponents: NavigationModels[] = [
   { name: "TimeInput", href: "/docs/vkx-time-input" },
 
   { name: "Table", href: "/docs/vkx-table" },
+  { name: "TableForm", href: "/docs/vkx-table-form" },
+
   { name: "Tooltip", href: "/docs/vkx-tooltip" },
+
 ];
 
 const layoutComponents: NavigationModels[] = [

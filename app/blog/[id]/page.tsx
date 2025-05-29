@@ -1,7 +1,9 @@
 "use client";
 
+
 import VkxButton from "@/components/vkx-button/vkx-button";
-import VkxForm from "@/components/vkx-form/vkx-form";
+import { VkxForm } from "@/components/vkx-form/vkx-form";
+
 import { VkxInput } from "@/components/vkx-input";
 import { VkxTextArea } from "@/components/vkx-text-area/vkx-text-area";
 

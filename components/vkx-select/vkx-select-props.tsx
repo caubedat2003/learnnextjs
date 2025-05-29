@@ -2,8 +2,9 @@ import { SharedSelection } from "@heroui/system";
 import { ReactNode } from "react";
 import { VkxSelectItem } from "./vkx-select-item";
 import { SelectionMode } from "@react-types/shared";
+import { SelectProps } from "@heroui/react";
 
-export interface VkxSelectProps {
+export interface VkxSelectProps extends Omit<SelectProps,'children'> {
   selectItems: VkxSelectItem[];
   ariaLabel?: string;
   defaultSelectedKeys?: Set<string>;
