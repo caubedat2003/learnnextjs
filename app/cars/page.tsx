@@ -3,53 +3,76 @@
 import Company from "@/src/entities/Company";
 import { useRouter } from 'next/navigation';
 import HttpUtils from "@/utils/HttpUtils";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ResponseErrorAPI } from "@/src/Interface/ResponseErrorAPI";
+import { VkxDatePicker } from "@/components/vkx-date-picker/vkx-date-picker";
+import { now, parseDate, today } from "@internationalized/date";
+import { VkxInput } from "@/components/vkx-input";
+import { DateValue } from "@heroui/react";
+import VkxButton from "@/components/vkx-button/vkx-button";
+import VkxDatatableGet, {DataTableHandle} from "@/components/vkx-datatableGet/vkx-data-table-get";  
+import { VkxNumberInput } from "@/components/vkx-number-input/vkx-number-input";
 
-  
-
+  type SearchForm = {
+    name: string;
+    address: string;
+    phone: string;
+    time: DateValue | null;
+  }
   export default function CarListPage() {
     const [Companys, setCompany] = useState<Company[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const router = useRouter();
     const [error, setError] = useState<ResponseErrorAPI | null>(null);
+    const [searchForm,setSearchFrom] = useState<SearchForm>(
+      {
+        name: '',
+        address: '',
+        phone: '',
+        time: now('UTC'), // Khởi tạo với ngày hiện tại
+      }
+    );
 
-    let searchForm = {
-      name: '',
-      address: '',
-      phone: '',
+    const tableRef = useRef<DataTableHandle>(null);
+    const handleSearchClick = () => {
+      tableRef.current?.search()
     }
+
+    const columnsDatatable = [
+      { name: 'Id', value: 'id' },
+      { name: 'Tên', value: 'name' },
+      { name: 'Email', value: 'email' },
+      { name: 'Địa chỉ', value: 'address' },
+      { name: 'Số điện thoại', value: 'phone' },
+    ] 
+
+    const minValue = parseDate("2020-01-01");
+      const maxValue = parseDate("2030-12-31");
+      const placeholderDate = today("UTC");
 
 
     let HostUrl = process.env.NODE_ENV === 'development' 
                    ?  process.env.NEXT_PUBLIC_URL_DEV as string 
                    : process.env.NEXT_PUBLIC_URL_PRODUCTION as string;
    
-    const fetchData = async () => {
-      
-      const apiUrl = HostUrl + "Company";
-      const actionCode = "SomeAction";
-      const bodyContent = JSON.stringify({
-        someField: "someValue",
-      });
     
-      try {
-        const result = await HttpUtils.get<Company>(apiUrl, actionCode, bodyContent);
-        if(result && result.items)
-        {
-          setCompany(result.items as Company[]);
-        }
-      } catch (error) {
-        debugger
-         setError(error as ResponseErrorAPI); // Lưu lỗi vào state
-        // console.error("Error calling API:", error);
-      }
-    }
-
     const handleCreateNew = () => {
       // chuyển về màn hình create
       router.push('/cars/create');
     };
+
+    // Hàm xử lý thay đổi giá trị trong ô input
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchFrom(prev => (
+          { ...prev, [e.target.name]: e.target.value }
+        ));
+    };
+
+    // Hàm xử lý thay đổi giá trị trong ô input date số
+    const handleDateChange = (date: DateValue | null) => {
+      setSearchFrom(prev => ({ ...prev, time: date }));
+    };
+    
 
     const navigateToDetail = (id: number) => {
       // Dùng router.push() để chuyển hướng đến trang chi tiết
@@ -60,23 +83,25 @@ import { ResponseErrorAPI } from "@/src/Interface/ResponseErrorAPI";
         try {
                let apiUrl = HostUrl + "company"; // Xác định URL API
                const result = await HttpUtils.delete<Company>(apiUrl, id.toString());
-               fetchData();
+               handleSearchClick();
                localStorage.setItem("IDDelete",id.toString());
            } catch (error) {
                console.error("Error calling API:", error);
            }
     };
-
-    // chạy 1 lần môi khi load trang và sau khi load xong trang tĩnh trên client
-    useEffect(() => {
-      fetchData();
-      //alert("vừa có bản cập nhật với id: " + localStorage.getItem("IDSua"));
-    }, []);
-
     // chạy 1 lần mỗi khi Companys Thay đổi
     useEffect(() => {
       console.log("kết quả trả về: ", Companys);
     }, [Companys]);
+
+    const search = () => {
+      // Xử lý tìm kiếm ở đây
+      debugger
+      console.log("Tìm kiếm với dữ liệu:", searchForm);
+      // Gọi API hoặc lọc dữ liệu dựa trên searchForm
+      // Ví dụ: fetchData(searchForm);
+    };
+    
 
     if (error) {
     return (
@@ -86,7 +111,7 @@ import { ResponseErrorAPI } from "@/src/Interface/ResponseErrorAPI";
         <p>{error.statusCode}</p>
         <button onClick={() => {
           setError(null);
-          fetchData();
+          handleSearchClick();
         }}>
           Thử lại
         </button>
@@ -101,13 +126,35 @@ import { ResponseErrorAPI } from "@/src/Interface/ResponseErrorAPI";
         <div className="border border-gray-300 rounded-xl p-6 shadow-sm">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Tên</label>
-              <input
-                type="text"
-                name="keyword"
-                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+              <VkxInput label="Name" type="text" name="name" value={searchForm.name} onChange={handleChange}  />
+            </div>
+            <div>
+              <VkxInput label="Địa chỉ" type="text" name="address" value={searchForm.address} onChange={handleChange} />
+            </div>
+            <div>
+              <VkxDatePicker
+                        className="max-w-xs"
+                        label="Chọn ngày sinh"
+                        minValue={minValue}
+                        placeholder={placeholderDate}
+                        value={searchForm.time}
+                        onChange={handleDateChange}
               />
             </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+            <div>
+              <VkxInput label="Name" type="text" name="name" value={searchForm.name} onChange={handleChange}  />
+            </div>
+            <div>
+              <VkxInput label="Địa chỉ" type="text" name="address" value={searchForm.address} onChange={handleChange} />
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+           <VkxButton onPress={search} >
+              Tìm kiếm
+           </VkxButton>
           </div>
         </div>
         {/* {tìm kiếm} */}
@@ -118,7 +165,21 @@ import { ResponseErrorAPI } from "@/src/Interface/ResponseErrorAPI";
           Tạo mới
         </button>
 
-        <table className="w-full table-auto border border-collapse border-gray-400">
+        <VkxDatatableGet
+          objectdata = {Company}
+          ref={tableRef}
+          dataUrl="company"
+          columns={columnsDatatable}
+          search={searchForm}
+          renderActions={(item: Company) => (
+            <div className="space-x-2">
+              <button className="text-blue-600 underline">Xem</button>
+              <button className="text-red-600 underline">Xóa</button>
+            </div>
+          )}
+        />
+
+        {/* <table className="w-full table-auto border border-collapse border-gray-400">
           <thead className="bg-gray-200">
             <tr>
               <th className="border px-4 py-2">ID</th>
@@ -155,7 +216,7 @@ import { ResponseErrorAPI } from "@/src/Interface/ResponseErrorAPI";
               </tr>
             ))}
           </tbody>
-        </table>
+        </table> */}
 
       </main>
     );
