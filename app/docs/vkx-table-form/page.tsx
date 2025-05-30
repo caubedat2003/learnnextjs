@@ -27,70 +27,9 @@ export default function VkxTableFormPage() {
 
   return (
     <div>
-      <div>
-        <h1 className="text-xl font-medium text-black dark:text-white mb-2">
-          1. Form kết hợp với table
-        </h1>
-        <VkxForm autoComplete="on" className="">
-          <Table aria-label="Example static collection table">
-            <TableHeader>
-              <TableColumn>Họ và tên</TableColumn>
-              <TableColumn>Ngày sinh</TableColumn>
-              <TableColumn>Giới tính</TableColumn>
-              <TableColumn>Điểm thi</TableColumn>
-            </TableHeader>
-            <TableBody>
-              {students.map((student, index) => {
-                return (
-                  <TableRow key={index}>
-                    <TableCell>{student.name}</TableCell>
-                    <TableCell>{student?.birthday?.toString()} </TableCell>
-                    <TableCell>{student.gender}</TableCell>
-                    <TableCell>{student.score}</TableCell>
-                  </TableRow>
-                );
-              })}
-              {/* <TableRow key="1">
-                <TableCell>
-                  <VkxInput></VkxInput>
-                </TableCell>
-                <TableCell>
-                  <VkxDatePicker
-                    minValue={parseDate("1945-01-01")}
-                  ></VkxDatePicker>
-                </TableCell>
-                <TableCell className="w-40">
-                  <VkxSelect
-                    selectItems={[
-                      {
-                        key: "1",
-                        children: "Nam",
-                      },
-                      {
-                        key: "2",
-                        children: "Nữ",
-                      },
-                      {
-                        key: "3",
-                        children: "Khác",
-                      },
-                    ]}
-                  ></VkxSelect>
-                </TableCell>
-                <TableCell>
-                  <VkxNumberInput minValue={0} maxValue={10}></VkxNumberInput>
-                </TableCell>
-              </TableRow> */}
-            </TableBody>
-          </Table>
-        </VkxForm>
-
-        <p className="text-xs text-gray-500 mt-1"></p>
-      </div>
-
       <div className="mt-10">
         <h1 className="text-xl font-medium text-black dark:text-white mb-2">
-          2. Form kết hợp với table validate trong form
+          1. Form kết hợp với table validate trong form
         </h1>
         <VkxForm
           autoComplete="on"
@@ -113,56 +52,74 @@ export default function VkxTableFormPage() {
             </TableHeader>
 
             <TableBody key="body-table-2">
-              <TableRow key="root-input-table-key">
-                <TableCell>
-                  <VkxInput name="name"></VkxInput>
-                </TableCell>
-                <TableCell>
-                  <VkxDatePicker
-                    name="birthday"
-                    minValue={parseDate("1945-01-01")}
-                  ></VkxDatePicker>
-                </TableCell>
-                <TableCell className="w-40">
-                  <VkxSelect
-                    aria-label="gender"
-                    name="gender"
-                    selectItems={[
-                      {
-                        key: "1",
-                        children: "Nam",
-                      },
-                      {
-                        key: "2",
-                        children: "Nữ",
-                      },
-                      {
-                        key: "3",
-                        children: "Khác",
-                      },
-                    ]}
-                  ></VkxSelect>
-                </TableCell>
-                <TableCell>
-                  <VkxNumberInput
-                    name="score"
-                    minValue={0}
-                    maxValue={10}
-                  ></VkxNumberInput>
-                </TableCell>
-                <TableCell>
-                  <VkxButton type="submit" size="lg">
-                    Add
-                  </VkxButton>
-                </TableCell>
-              </TableRow>
+              <>
+                {students.map((student, index) => {
+                  return (
+                    <TableRow key={index}>
+                      <TableCell>{student.name}</TableCell>
+                      <TableCell>{student?.birthday?.toString()} </TableCell>
+                      <TableCell>{student.gender}</TableCell>
+                      <TableCell>{student.score}</TableCell>
+                      <TableCell> </TableCell>
+                    </TableRow>
+                  );
+                })}
+                <TableRow key="root-input-table-key">
+                  <TableCell>
+                    <VkxInput name="name"></VkxInput>
+                  </TableCell>
+                  <TableCell>
+                    <VkxDatePicker
+                      name="birthday"
+                      minValue={parseDate("1945-01-01")}
+                    ></VkxDatePicker>
+                  </TableCell>
+                  <TableCell className="w-40">
+                    <VkxSelect
+                      aria-label="gender"
+                      name="gender"
+                      selectItems={[
+                        {
+                          key: "1",
+                          children: "Nam",
+                        },
+                        {
+                          key: "2",
+                          children: "Nữ",
+                        },
+                        {
+                          key: "3",
+                          children: "Khác",
+                        },
+                      ]}
+                    ></VkxSelect>
+                  </TableCell>
+                  <TableCell>
+                    <VkxNumberInput
+                      name="score"
+                      minValue={0}
+                      maxValue={10}
+                    ></VkxNumberInput>
+                  </TableCell>
+                  <TableCell>
+                    <VkxButton type="submit" size="lg">
+                      Add
+                    </VkxButton>
+                  </TableCell>
+                </TableRow>
+              </>
             </TableBody>
           </Table>
         </VkxForm>
         <p className="text-xs text-gray-500 mt-1"></p>
-      </div>
 
-      
+        <div>
+          <h1>Ví dụ về cách tốt nhất xử lý validation trong next js</h1>
+          <div>
+            
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

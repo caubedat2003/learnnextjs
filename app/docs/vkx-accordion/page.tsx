@@ -1,15 +1,17 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Avatar } from "@heroui/react";
 
 import accordionItems from "../../../public/fake-data/accordions.json";
 
-import { VkxAccordion } from "@/components/vkx-accordion/vkx-accordion";
+
 import { VkxAccordionProps } from "@/components/vkx-accordion/vkx-accordion-props";
 import { VkxAccordionItemProps } from "@/components/vkx-accordion/vkx-accordion-item-props";
+import { VkxAccordion } from "@/components";
 
 export default function VkxAccordionPage() {
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [errors, setErrors] = React.useState({});
 
   var accordionItemsCustomTitle = accordionItems.map<VkxAccordionItemProps>(
     (item) => ({
