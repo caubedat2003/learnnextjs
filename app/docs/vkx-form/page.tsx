@@ -117,13 +117,19 @@ export default function VkxFormPage() {
           validationErrors={errors}
           onSubmit={(e) => {
             e.preventDefault();
-            const employee = Object.fromEntries(new FormData(e.currentTarget));
+            
+            const employee: Employee = Object.fromEntries(
+              new FormData(e.currentTarget)
+            );
 
             const student: Student = Object.fromEntries(
               new FormData(e.currentTarget)
-            )            
+            );
+
+            student.score;
+            
             console.log(employee);
-            console.log(student.score);
+            console.log(student);
 
             const result = callServer(employee);
             setErrors(result.errors);
@@ -133,7 +139,7 @@ export default function VkxFormPage() {
             isRequired
             // errorMessage="Please enter a valid username"
             label="Username"
-            labelPlacement="outside"
+            labelPlacement="outside" 
             name="username"
             placeholder="Enter your username"
             type="text"

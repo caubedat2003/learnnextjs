@@ -24,6 +24,8 @@ interface Student {
 }
 export default function VkxTableFormPage() {
   const [students, setStudents] = React.useState<Student[]>([]);
+  const [email, setEmail] = React.useState("");
+  const [submittedValue, submitted] = React.useState({});
 
   return (
     <div>
@@ -35,6 +37,9 @@ export default function VkxTableFormPage() {
           autoComplete="on"
           onSubmit={(e) => {
             e.preventDefault();
+            console.log(e.currentTarget);
+
+            
             let student: Student = Object.fromEntries(
               new FormData(e.currentTarget)
             );
@@ -113,10 +118,47 @@ export default function VkxTableFormPage() {
         </VkxForm>
         <p className="text-xs text-gray-500 mt-1"></p>
 
-        <div>
-          <h1>Ví dụ về cách tốt nhất xử lý validation trong next js</h1>
-          <div>
-            
+        <div className="mt-6">
+          <h1 className="text-xl">
+            2. Ví dụ về cách tốt nhất xử lý validation trong next js
+          </h1>
+          <div className="mt-6">
+            <VkxForm
+              className="w-full max-w-xs"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const data = Object.fromEntries(new FormData(e.currentTarget));
+                submitted(data);
+                console.log(data);
+              }}
+            >
+              <VkxInput
+                isRequired
+                errorMessage="Please enter a valid email"
+                label="Email"
+                labelPlacement="outside"
+                name="email"
+                placeholder="Enter your email"
+                type="email"
+                value={email}
+                onValueChange={setEmail}
+                validate={(value) => {
+                  console.log("validate2" + value);
+                  if (value.length < 10) {
+                    return "Username must be at least 3 characters long";
+                  }
+                  return value === "admin" ? "Nice try" : null;
+                }}
+              />
+              <VkxButton type="submit" variant="bordered">
+                Submit
+              </VkxButton>
+              {submittedValue && (
+                <div className="text-small text-default-500">
+                  You submitted: <code>{JSON.stringify(submittedValue)}</code>
+                </div>
+              )}
+            </VkxForm>
           </div>
         </div>
       </div>
