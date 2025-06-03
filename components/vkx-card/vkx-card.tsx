@@ -76,9 +76,9 @@ export function VKXCard({
       {...props}
     >
       {header && <CardHeader className={headerClassName}>{header}</CardHeader>}
-      <CardBody className={bodyClassName}>
-        {children}
-      </CardBody>
+      {header && <Divider />}
+      <CardBody className={bodyClassName}>{children}</CardBody>
+      {footer && <Divider />}
       {footer && <CardFooter className={footerClassName}>{footer}</CardFooter>}
     </Card>
   );

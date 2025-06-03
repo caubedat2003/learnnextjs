@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { VkxAccordion } from "@/components/vkx-accordion/vkx-accordion";
 import { NavigationModels } from "@/models/navigation-models";
 import { VkxLink } from "@/components/vkx-link/vkx-link";
+import { ToastProvider } from "@heroui/react";
 
 const formComponents: NavigationModels[] = [
   { name: "Autocomplete", href: "/docs/vkx-autocomplete" },
@@ -51,7 +52,6 @@ const formComponents: NavigationModels[] = [
   { name: "TableForm", href: "/docs/vkx-table-form" },
 
   { name: "Tooltip", href: "/docs/vkx-tooltip" },
-
 ];
 
 const layoutComponents: NavigationModels[] = [
@@ -62,6 +62,7 @@ const layoutComponents: NavigationModels[] = [
   { name: "Tabs", href: "/docs/vkx-tabs" },
   { name: "Spacer", href: "/docs/vkx-spacer" },
   { name: "Listbox", href: "/docs/vkx-listbox" },
+  { name: "Toast", href: "/docs/vkx-toast" },
 ];
 const notificationComponents: NavigationModels[] = [
   { name: "Alert", href: "/docs/vkx-alert" },
@@ -82,183 +83,186 @@ export default function DocsLayout({
   const pathname = usePathname();
 
   return (
-    <div className="flex">
-      {/* Sidebar */}
-      <div
-        className="w-64 h-[calc(100vh-64px)] 
+    <>
+      <ToastProvider />
+      <div className="flex">
+        {/* Sidebar */}
+        <div
+          className="w-64 h-[calc(100vh-64px)] 
           overflow-y-auto fixed left-0 top-16 dark:bg-black border-r border-divider"
-      >
-        <VkxAccordion
-          accordionItems={[
-            {
-              key: "component",
-              title: (
-                <p className="text-xl font-semibold text-foreground">
-                  Components
-                </p>
-              ),
-              children: (
-                <VkxAccordion
-                  accordionItems={[
-                    // Form components
-                    {
-                      key: "form-components",
-                      title: (
-                        <h3 className="text-lg font-semibold text-foreground">
-                          Form
-                        </h3>
-                      ),
-                      children: (
-                        <nav className="flex flex-col gap-1">
-                          {formComponents.map((item) => (
-                            <VkxLink
-                              key={item.name}
-                              className={clsx(
-                                "px-3 py-2 rounded-lg transition-colors",
-                                "hover:bg-default-100",
-                                pathname === item.href
-                                  ? "bg-default-100 text-default-foreground"
-                                  : "text-default-500"
-                              )}
-                              href={item.href}
-                            >
-                              <div className="flex items-center justify-between gap-2">
-                                <span>{item.name}</span>
-                                {item.status && (
-                                  <span className="text-xs text-primary-500">
-                                    {item.status}
-                                  </span>
+        >
+          <VkxAccordion
+            accordionItems={[
+              {
+                key: "component",
+                title: (
+                  <p className="text-xl font-semibold text-foreground">
+                    Components
+                  </p>
+                ),
+                children: (
+                  <VkxAccordion
+                    accordionItems={[
+                      // Form components
+                      {
+                        key: "form-components",
+                        title: (
+                          <h3 className="text-lg font-semibold text-foreground">
+                            Form
+                          </h3>
+                        ),
+                        children: (
+                          <nav className="flex flex-col gap-1">
+                            {formComponents.map((item) => (
+                              <VkxLink
+                                key={item.name}
+                                className={clsx(
+                                  "px-3 py-2 rounded-lg transition-colors",
+                                  "hover:bg-default-100",
+                                  pathname === item.href
+                                    ? "bg-default-100 text-default-foreground"
+                                    : "text-default-500"
                                 )}
-                              </div>
-                            </VkxLink>
-                          ))}
-                        </nav>
-                      ),
-                    },
-                    // Layout components
-                    {
-                      key: "layout-components",
-                      title: (
-                        <p className="text-lg font-semibold text-foreground">
-                          Layout
-                        </p>
-                      ),
-                      children: (
-                        <nav className="flex flex-col gap-1">
-                          {layoutComponents.map((item) => (
-                            <Link
-                              key={item.name}
-                              className={clsx(
-                                "px-3 py-2 rounded-lg transition-colors",
-                                "hover:bg-default-100",
-                                pathname === item.href
-                                  ? "bg-default-100 text-default-foreground"
-                                  : "text-default-500"
-                              )}
-                              href={item.href}
-                            >
-                              <div className="flex items-center justify-between gap-2">
-                                <span>{item.name}</span>
-                                {item.status && (
-                                  <span className="text-xs text-primary-500">
-                                    {item.status}
-                                  </span>
+                                href={item.href}
+                              >
+                                <div className="flex items-center justify-between gap-2">
+                                  <span>{item.name}</span>
+                                  {item.status && (
+                                    <span className="text-xs text-primary-500">
+                                      {item.status}
+                                    </span>
+                                  )}
+                                </div>
+                              </VkxLink>
+                            ))}
+                          </nav>
+                        ),
+                      },
+                      // Layout components
+                      {
+                        key: "layout-components",
+                        title: (
+                          <p className="text-lg font-semibold text-foreground">
+                            Layout
+                          </p>
+                        ),
+                        children: (
+                          <nav className="flex flex-col gap-1">
+                            {layoutComponents.map((item) => (
+                              <Link
+                                key={item.name}
+                                className={clsx(
+                                  "px-3 py-2 rounded-lg transition-colors",
+                                  "hover:bg-default-100",
+                                  pathname === item.href
+                                    ? "bg-default-100 text-default-foreground"
+                                    : "text-default-500"
                                 )}
-                              </div>
-                            </Link>
-                          ))}
-                        </nav>
-                      ),
-                    },
-                    // Notification components
-                    {
-                      key: "notification-components",
-                      title: (
-                        <h3 className="text-lg font-semibold text-foreground">
-                          Notification
-                        </h3>
-                      ),
-                      children: (
-                        <nav className="flex flex-col gap-1">
-                          {notificationComponents.map((item) => (
-                            <Link
-                              key={item.name}
-                              className={clsx(
-                                "px-3 py-2 rounded-lg transition-colors",
-                                "hover:bg-default-100",
-                                pathname === item.href
-                                  ? "bg-default-100 text-default-foreground"
-                                  : "text-default-500"
-                              )}
-                              href={item.href}
-                            >
-                              <div className="flex items-center justify-between gap-2">
-                                <span>{item.name}</span>
-                                {item.status && (
-                                  <span className="text-xs text-primary-500">
-                                    {item.status}
-                                  </span>
+                                href={item.href}
+                              >
+                                <div className="flex items-center justify-between gap-2">
+                                  <span>{item.name}</span>
+                                  {item.status && (
+                                    <span className="text-xs text-primary-500">
+                                      {item.status}
+                                    </span>
+                                  )}
+                                </div>
+                              </Link>
+                            ))}
+                          </nav>
+                        ),
+                      },
+                      // Notification components
+                      {
+                        key: "notification-components",
+                        title: (
+                          <h3 className="text-lg font-semibold text-foreground">
+                            Notification
+                          </h3>
+                        ),
+                        children: (
+                          <nav className="flex flex-col gap-1">
+                            {notificationComponents.map((item) => (
+                              <Link
+                                key={item.name}
+                                className={clsx(
+                                  "px-3 py-2 rounded-lg transition-colors",
+                                  "hover:bg-default-100",
+                                  pathname === item.href
+                                    ? "bg-default-100 text-default-foreground"
+                                    : "text-default-500"
                                 )}
-                              </div>
-                            </Link>
-                          ))}
-                        </nav>
-                      ),
-                    },
-                    // Display components
-                    {
-                      key: "display-component",
-                      title: (
-                        <p className="text-lg font-semibold text-foreground">
-                          Display
-                        </p>
-                      ),
-                      children: (
-                        <nav className="flex flex-col gap-1">
-                          {displayComponents.map((item) => (
-                            <Link
-                              key={item.name}
-                              className={clsx(
-                                "px-3 py-2 rounded-lg transition-colors",
-                                "hover:bg-default-100",
-                                pathname === item.href
-                                  ? "bg-default-100 text-default-foreground"
-                                  : "text-default-500"
-                              )}
-                              href={item.href}
-                            >
-                              <div className="flex items-center justify-between gap-2">
-                                <span>{item.name}</span>
-                                {item.status && (
-                                  <span className="text-xs text-primary-500">
-                                    {item.status}
-                                  </span>
+                                href={item.href}
+                              >
+                                <div className="flex items-center justify-between gap-2">
+                                  <span>{item.name}</span>
+                                  {item.status && (
+                                    <span className="text-xs text-primary-500">
+                                      {item.status}
+                                    </span>
+                                  )}
+                                </div>
+                              </Link>
+                            ))}
+                          </nav>
+                        ),
+                      },
+                      // Display components
+                      {
+                        key: "display-component",
+                        title: (
+                          <p className="text-lg font-semibold text-foreground">
+                            Display
+                          </p>
+                        ),
+                        children: (
+                          <nav className="flex flex-col gap-1">
+                            {displayComponents.map((item) => (
+                              <Link
+                                key={item.name}
+                                className={clsx(
+                                  "px-3 py-2 rounded-lg transition-colors",
+                                  "hover:bg-default-100",
+                                  pathname === item.href
+                                    ? "bg-default-100 text-default-foreground"
+                                    : "text-default-500"
                                 )}
-                              </div>
-                            </Link>
-                          ))}
-                        </nav>
-                      ),
-                    },
-                  ]}
-                  defaultExpandedKeys={
-                    new Set([
-                      "form-components",
-                      "layout-components",
-                      "notification-components",
-                      "display-components",
-                    ])
-                  }
-                ></VkxAccordion>
-              ),
-            },
-          ]}
-          className="pb-16"
-          defaultExpandedKeys={new Set(["component"])}
-        ></VkxAccordion>
+                                href={item.href}
+                              >
+                                <div className="flex items-center justify-between gap-2">
+                                  <span>{item.name}</span>
+                                  {item.status && (
+                                    <span className="text-xs text-primary-500">
+                                      {item.status}
+                                    </span>
+                                  )}
+                                </div>
+                              </Link>
+                            ))}
+                          </nav>
+                        ),
+                      },
+                    ]}
+                    defaultExpandedKeys={
+                      new Set([
+                        "form-components",
+                        "layout-components",
+                        "notification-components",
+                        "display-components",
+                      ])
+                    }
+                   />
+                ),
+              },
+            ]}
+            className="pb-16"
+            defaultExpandedKeys={new Set(["component"])}
+           />
+        </div>
+        {/* Main content */}
+        <div className="flex-1 ml-64">{children}</div>
       </div>
-      {/* Main content */}
-      <div className="flex-1 ml-64">{children}</div>
-    </div>
+    </>
   );
 }

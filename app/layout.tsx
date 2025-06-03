@@ -8,6 +8,7 @@ import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 import Link from "next/link";
+import { ToastProvider } from "@heroui/react";
 
 export const metadata: Metadata = {
   title: {

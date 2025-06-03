@@ -275,7 +275,9 @@ export default function VkxNumberInputPage() {
                 <td className="border px-4 py-2">value</td>
                 <td className="border px-4 py-2">number</td>
                 <td className="border px-4 py-2">-</td>
-                <td className="border px-4 py-2">Giá trị điều khiển (controlled)</td>
+                <td className="border px-4 py-2">
+                  Giá trị điều khiển (controlled)
+                </td>
               </tr>
               <tr>
                 <td className="border px-4 py-2">placeholder</td>
@@ -287,7 +289,9 @@ export default function VkxNumberInputPage() {
                 <td className="border px-4 py-2">label</td>
                 <td className="border px-4 py-2">ReactNode</td>
                 <td className="border px-4 py-2">-</td>
-                <td className="border px-4 py-2">Nhãn hiển thị phía trên ô nhập</td>
+                <td className="border px-4 py-2">
+                  Nhãn hiển thị phía trên ô nhập
+                </td>
               </tr>
               <tr>
                 <td className="border px-4 py-2">description</td>
@@ -299,7 +303,9 @@ export default function VkxNumberInputPage() {
                 <td className="border px-4 py-2">errorMessage</td>
                 <td className="border px-4 py-2">string</td>
                 <td className="border px-4 py-2">-</td>
-                <td className="border px-4 py-2">Thông báo lỗi hiển thị khi isInvalid=true</td>
+                <td className="border px-4 py-2">
+                  Thông báo lỗi hiển thị khi isInvalid=true
+                </td>
               </tr>
               <tr>
                 <td className="border px-4 py-2">isDisabled</td>
@@ -311,7 +317,9 @@ export default function VkxNumberInputPage() {
                 <td className="border px-4 py-2">isInvalid</td>
                 <td className="border px-4 py-2">boolean</td>
                 <td className="border px-4 py-2">false</td>
-                <td className="border px-4 py-2">Trạng thái không hợp lệ (hiển thị errorMessage)</td>
+                <td className="border px-4 py-2">
+                  Trạng thái không hợp lệ (hiển thị errorMessage)
+                </td>
               </tr>
               <tr>
                 <td className="border px-4 py-2">isRequired</td>
@@ -335,7 +343,9 @@ export default function VkxNumberInputPage() {
                 <td className="border px-4 py-2">step</td>
                 <td className="border px-4 py-2">number</td>
                 <td className="border px-4 py-2">1</td>
-                <td className="border px-4 py-2">Bước nhảy khi tăng/giảm giá trị</td>
+                <td className="border px-4 py-2">
+                  Bước nhảy khi tăng/giảm giá trị
+                </td>
               </tr>
               <tr>
                 <td className="border px-4 py-2">name</td>
@@ -347,13 +357,17 @@ export default function VkxNumberInputPage() {
                 <td className="border px-4 py-2">readOnly</td>
                 <td className="border px-4 py-2">boolean</td>
                 <td className="border px-4 py-2">false</td>
-                <td className="border px-4 py-2">Chỉ đọc, không cho chỉnh sửa</td>
+                <td className="border px-4 py-2">
+                  Chỉ đọc, không cho chỉnh sửa
+                </td>
               </tr>
               <tr>
                 <td className="border px-4 py-2">onValueChange</td>
                 <td className="border px-4 py-2">(value: number) =&gt; void</td>
                 <td className="border px-4 py-2">-</td>
-                <td className="border px-4 py-2">Callback khi giá trị thay đổi</td>
+                <td className="border px-4 py-2">
+                  Callback khi giá trị thay đổi
+                </td>
               </tr>
               <tr>
                 <td className="border px-4 py-2">isClearable</td>
@@ -377,7 +391,9 @@ export default function VkxNumberInputPage() {
                 <td className="border px-4 py-2">isWheelDisabled</td>
                 <td className="border px-4 py-2">boolean</td>
                 <td className="border px-4 py-2">false</td>
-                <td className="border px-4 py-2">Vô hiệu hóa thay đổi giá trị bằng cuộn chuột</td>
+                <td className="border px-4 py-2">
+                  Vô hiệu hóa thay đổi giá trị bằng cuộn chuột
+                </td>
               </tr>
               <tr>
                 <td className="border px-4 py-2">formatOptions</td>
