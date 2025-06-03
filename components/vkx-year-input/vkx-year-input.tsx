@@ -6,14 +6,15 @@ interface VkxYearInputProps extends Omit<VkxSelectProps, "selectItems"> {
   selectItems?: VkxSelectItem[];
 }
 
-export const VkxYearInput: React.FC<VkxYearInputProps> = ({
+export const VkxYearInput: React.FC<VkxYearInputProps & { ariaLabel?: string }> = ({
   selectItems,
+  ariaLabel = "VkxYearInput",
   ...props
 }) => {
   getSelectItems();
   return (
     <VkxSelect
-      ariaLabel="Year input"
+      ariaLabel={ariaLabel}
       selectItems={selectItems ?? years}
       {...props}
     ></VkxSelect>

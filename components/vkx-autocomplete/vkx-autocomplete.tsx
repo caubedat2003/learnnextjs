@@ -73,10 +73,12 @@ export function VkxAutocomplete({
   startContent,
   variant,
   scrollShadowProps,
+  ariaLabel = "VkxAutocomplete",
   ...props
-}: VkxAutocompleteProps) {
+}: VkxAutocompleteProps & { ariaLabel?: string }) {
   return (
     <Autocomplete
+      aria-label={ariaLabel}
       allowsCustomValue={allowsCustomValue}
       className={className}
       color={color}
@@ -96,7 +98,7 @@ export function VkxAutocomplete({
       startContent={startContent}
       variant={variant}
       onClose={onClose}
-      onInputChange={onInputChange} 
+      onInputChange={onInputChange}
       onSelectionChange={onSelectionChange}
       {...props}
     >

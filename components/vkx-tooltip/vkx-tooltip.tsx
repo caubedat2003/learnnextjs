@@ -41,7 +41,7 @@ export interface VkxTooltipProps extends TooltipProps {
   updatePositionDeps?: any[];
 }
 
-export const VkxTooltip: React.FC<VkxTooltipProps> = ({
+export const VkxTooltip: React.FC<VkxTooltipProps & { ariaLabel?: string }> = ({
   classNames,
   closeDelay = 500,
   color = "default",
@@ -71,10 +71,12 @@ export const VkxTooltip: React.FC<VkxTooltipProps> = ({
   size = "md",
   triggerScaleOnOpen = true,
   updatePositionDeps = [],
+  ariaLabel = "VkxTooltip",
   ...props
 }) => {
   return (
     <Tooltip
+      aria-label={ariaLabel}
       classNames={classNames}
       closeDelay={closeDelay}
       color={color}

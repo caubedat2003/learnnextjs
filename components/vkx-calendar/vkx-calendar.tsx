@@ -5,8 +5,8 @@ export interface VkxCalendarProps extends CalendarProps {
   className?: string;
 }
 
-export const VkxCalendar: React.FC<VkxCalendarProps> = ({ className, ...props }) => {
-  return <Calendar className={className} {...props} />;
+export const VkxCalendar: React.FC<VkxCalendarProps & { ariaLabel?: string }> = ({ className, ariaLabel = "VkxCalendar", ...props }) => {
+  return <Calendar className={className} aria-label={ariaLabel} {...props} />;
 };
 
 export default VkxCalendar;

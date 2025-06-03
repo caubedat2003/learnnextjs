@@ -1,6 +1,7 @@
 import { NumberInput, NumberInputProps } from "@heroui/number-input";
 import React from "react";
 export interface VkxNumberInputProps extends NumberInputProps {
+  ariaLabel?: string;
   className?: string;
   defaultValue?: number;
   value?: number;
@@ -23,10 +24,10 @@ export interface VkxNumberInputProps extends NumberInputProps {
   readOnly?: boolean;
   onValueChange?: (value: number) => void | undefined;
   onClear?: (() => void | undefined) | undefined;
-  
 }
 
 export const VkxNumberInput: React.FC<VkxNumberInputProps> = ({
+  ariaLabel = "VkxNumberInput",
   className,
   defaultValue,
   value,
@@ -53,6 +54,7 @@ export const VkxNumberInput: React.FC<VkxNumberInputProps> = ({
 }) => {
   return (
     <NumberInput
+      aria-label={ariaLabel}
       className={className}
       defaultValue={defaultValue}
       value={value}

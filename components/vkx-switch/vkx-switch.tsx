@@ -37,7 +37,7 @@ export interface VkxSwitchProps extends SwitchProps {
   value?: string;
 }
 
-export const VkxSwitch: React.FC<VkxSwitchProps> = ({
+export const VkxSwitch: React.FC<VkxSwitchProps & { ariaLabel?: string }> = ({
   classNames,
   color = "primary",
   defaultSelected,
@@ -52,10 +52,12 @@ export const VkxSwitch: React.FC<VkxSwitchProps> = ({
   size = "md",
   startContent,
   value,
+  ariaLabel = "VkxSwitch",
   ...props
 }) => {
   return (
     <Switch
+      aria-label={ariaLabel}
       classNames={classNames}
       color={color}
       defaultSelected={defaultSelected}
