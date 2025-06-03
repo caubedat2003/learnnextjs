@@ -2,7 +2,7 @@ import { Button } from "@heroui/button";
 
 import { VkxButtonProps } from "./vkx-button-props";
 
-const VkxButton: React.FC<VkxButtonProps> = ({
+const VkxButton: React.FC<VkxButtonProps & { ariaLabel?: string }> = ({
   children,
   className,
   color,
@@ -13,10 +13,12 @@ const VkxButton: React.FC<VkxButtonProps> = ({
   startContent,
   type,
   variant,
+  ariaLabel = "VkxButton",
   ...props
 }) => {
   return (
     <Button
+      aria-label={ariaLabel}
       className={className}
       color={color}
       isDisabled={isDisabled}

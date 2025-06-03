@@ -20,7 +20,7 @@ export interface VkxTextAreaProps extends TextAreaProps {
   value?: string;
 }
 
-export const VkxTextArea: React.FC<VkxTextAreaProps> = ({
+export const VkxTextArea: React.FC<VkxTextAreaProps & { ariaLabel?: string }> = ({
   className,
   defaultValue,
   description,
@@ -37,10 +37,12 @@ export const VkxTextArea: React.FC<VkxTextAreaProps> = ({
   placeholder,
   readOnly,
   value,
+  ariaLabel = "VkxTextArea",
   ...props
 }) => {
   return (
     <Textarea
+      aria-label={ariaLabel}
       className={className}
       defaultValue={defaultValue}
       description={description}

@@ -5,11 +5,12 @@ export interface VkxDateInputProps extends DateInputProps {
   className?: string;
 }
 
-export const VkxDateInput: React.FC<VkxDateInputProps> = ({
+export const VkxDateInput: React.FC<VkxDateInputProps & { ariaLabel?: string }> = ({
   className,
+  ariaLabel = "VkxDateInput",
   ...props
 }) => {
-  return <DateInput className={className} {...props} />;
+  return <DateInput className={className} aria-label={ariaLabel} {...props} />;
 };
 
 export default VkxDateInput;

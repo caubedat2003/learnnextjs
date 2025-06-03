@@ -60,11 +60,12 @@ export function VKXTabs({
   destroyInactiveTabPanel = false,
   items,
   onSelectionChange,
+  ariaLabel = "VKXTabs",
   ...props
-}: VKXTabsProps) {
+}: VKXTabsProps & { ariaLabel?: string }) {
   return (
     <Tabs
-      aria-label="VKX tabs"
+      aria-label={ariaLabel}
       className={className}
       color={color}
       defaultSelectedKey={defaultSelectedKey}

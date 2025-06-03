@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import { Select, SelectItem } from "@heroui/react";
 import { VkxSelectProps } from "./vkx-select-props";
 
-export const VkxSelect: React.FC<VkxSelectProps> = ({
+export const VkxSelect: React.FC<VkxSelectProps & { ariaLabel?: string }> = ({
   className,
   color,
   defaultSelectedKeys,
@@ -27,6 +27,7 @@ export const VkxSelect: React.FC<VkxSelectProps> = ({
   size,
   startContent,
   variant,
+  ariaLabel = "VkxSelect",
   ...props
 }) => {
   // Default required validation handler
@@ -46,6 +47,7 @@ export const VkxSelect: React.FC<VkxSelectProps> = ({
 
   return (
     <Select
+      aria-label={ariaLabel}
       className={className}
       color={color}
       defaultSelectedKeys={defaultSelectedKeys}

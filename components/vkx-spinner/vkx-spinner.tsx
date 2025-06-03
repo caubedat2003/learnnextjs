@@ -28,9 +28,11 @@ export default function VKXSpinner({
   color = "primary",
   variant = "default",
   labelColor = "default",
-}: VKXSpinnerProps) {
+  ariaLabel = "VKXSpinner",
+}: VKXSpinnerProps & { ariaLabel?: string }) {
   return (
     <Spinner
+      aria-label={ariaLabel}
       color={color}
       label={label}
       labelColor={labelColor === "default" ? undefined : labelColor}
