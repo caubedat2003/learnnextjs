@@ -32,7 +32,7 @@ export interface VkxLinkProps extends LinkProps {
   onKeyUp?: (e: React.KeyboardEvent<HTMLAnchorElement>) => void;
 }
 
-export const VkxLink: React.FC<VkxLinkProps> = ({
+export const VkxLink: React.FC<VkxLinkProps & { ariaLabel?: string }> = ({
   anchorIcon,
   children,
   className,
@@ -55,10 +55,12 @@ export const VkxLink: React.FC<VkxLinkProps> = ({
   size,
   target,
   underline,
+  ariaLabel = "VkxLink",
   ...props
 }) => {
   return (
     <Link
+      aria-label={ariaLabel}
       anchorIcon={anchorIcon}
       className={className}
       color={color}

@@ -1,8 +1,9 @@
 "use client";
+import React, { useMemo } from "react";
 import { Select, SelectItem } from "@heroui/react";
 import { VkxSelectProps } from "./vkx-select-props";
 
-export const VkxSelect: React.FC<VkxSelectProps> = ({
+export const VkxSelect: React.FC<VkxSelectProps & { ariaLabel?: string }> = ({
   className,
   color,
   defaultSelectedKeys,
@@ -26,18 +27,35 @@ export const VkxSelect: React.FC<VkxSelectProps> = ({
   size,
   startContent,
   variant,
+  ariaLabel = "VkxSelect",
   ...props
 }) => {
+  // Default required validation handler
+  const computedIsInvalid = useMemo(() => {
+    if (typeof isInvalid === "boolean") return isInvalid;
+    if (isRequired && (!selectedKeys || selectedKeys.size === 0)) return true;
+    return false;
+  }, [isInvalid, isRequired, selectedKeys]);
+
+  const computedErrorMessage = useMemo(() => {
+    if (errorMessage) return errorMessage;
+    if (isRequired && (!selectedKeys || selectedKeys.size === 0)) {
+      return "Vui lòng chọn một mục";
+    }
+    return undefined;
+  }, [errorMessage, isRequired, selectedKeys]);
+
   return (
     <Select
+      aria-label={ariaLabel}
       className={className}
       color={color}
       defaultSelectedKeys={defaultSelectedKeys}
       description={description}
       disabledKeys={disabledKeys}
-      errorMessage={errorMessage}
+      errorMessage={computedErrorMessage}
       isDisabled={isDisabled}
-      isInvalid={isInvalid}
+      isInvalid={computedIsInvalid}
       isOpen={isOpen}
       isRequired={isRequired}
       isVirtualized={isVirtualized}

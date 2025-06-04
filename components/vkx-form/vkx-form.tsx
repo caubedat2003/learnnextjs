@@ -20,9 +20,10 @@ export interface VkxFormProps extends FormProps {
   onInvalid?: React.FormEventHandler<HTMLFormElement>;
 }
 
-export const VkxForm: React.FC<VkxFormProps> = ({
+export const VkxForm: React.FC<VkxFormProps & { ariaLabel?: string }> = ({
   children,
   className = "",
+  ariaLabel = "VkxForm",
   validationBehavior = "native",
   validationErrors,
   action,
@@ -38,6 +39,7 @@ export const VkxForm: React.FC<VkxFormProps> = ({
 }) => {
   return (
     <HeroUIForm
+      aria-label={ariaLabel}
       action={action}
       autoCapitalize={autoCapitalize}
       autoComplete={autoComplete}

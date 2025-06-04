@@ -1,45 +1,26 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 
 import { VkxForm } from "@/components/vkx-form/vkx-form";
 import { VkxInput } from "@/components/vkx-input/vkx-input";
 import VkxButton from "@/components/vkx-button/vkx-button";
+import { VkxPasswordInput } from "@/components/vkx-password-input/vkx-password-input";
+
+class Employee {
+  username?: string;
+  password?: string;
+}
+
+class Student {
+  score?: number;
+}
 
 export default function VkxFormPage() {
   const [submitted, setSubmitted] = React.useState({});
+  const [action, setAction] = React.useState("");
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const fromData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(fromData);
-
-    setSubmitted(data);
-    console.log(data);
-  };
-
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [validationErrors, setValidationErrors] = useState<
-    Record<string, string>
-  >({});
-
-  const handleLoginSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const errors: Record<string, string> = {};
-
-    if (!formData.email) errors.email = "Email is required & must be valid";
-    if (!formData.password)
-      errors.password = "Password is required <min 8 chars>";
-    setValidationErrors(errors);
-
-    if (Object.keys(errors).length === 0) {
-      console.log("Form submitted:", formData);
-    }
-  };
-
-  const handleInputChange = (field: keyof typeof formData, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
+  const [errors, setErrors] = React.useState({});
 
   return (
     <div className="flex w-full flex-col gap-8 p-6">
@@ -50,7 +31,14 @@ export default function VkxFormPage() {
         <VkxForm
           className="flex flex-col gap-4 max-w-md"
           method="post"
-          onSubmit={onSubmit}
+          onSubmit={(e) => {
+            e.preventDefault();
+            const fromData = new FormData(e.currentTarget);
+            const data = Object.fromEntries(fromData);
+
+            setSubmitted(data);
+            console.log(data);
+          }}
         >
           <VkxInput
             isRequired
@@ -75,56 +63,137 @@ export default function VkxFormPage() {
           2. Form có kiểm soát (controlled)
         </h1>
         <VkxForm
-          className="flex flex-col gap-4 max-w-md"
-          validationBehavior="aria"
-          validationErrors={validationErrors}
-          onSubmit={handleLoginSubmit}
+          className="w-full max-w-xs flex flex-col gap-4"
+          onReset={() => setAction("reset")}
+          onSubmit={(e) => {
+            e.preventDefault();
+            let data = Object.fromEntries(new FormData(e.currentTarget));
+
+            setAction(`submit ${JSON.stringify(data)}`);
+          }}
         >
-          <div>
-            <VkxInput
-              placeholder="Email"
-              type="email"
-              value={formData.email}
-              onValueChange={(e) => handleInputChange("email", e)}
-            />
-            {validationErrors.email && (
-              <p className="text-red-500 text-sm mt-1">
-                {validationErrors.email}
-              </p>
-            )}
-          </div>
-          <div>
-            <VkxInput
-              placeholder="Password"
-              type="password"
-              value={formData.password}
-              onValueChange={(e) => handleInputChange("password", e)}
-            />
-            {validationErrors.password && (
-              <p className="text-red-500 text-sm mt-1">
-                {validationErrors.password}
-              </p>
-            )}
-          </div>
+          <VkxInput
+            isRequired
+            errorMessage="Please enter a valid username"
+            label="Username"
+            labelPlacement="outside"
+            name="username"
+            placeholder="Enter your username"
+            type="text"
+          />
+
+          <VkxInput
+            isRequired
+            errorMessage="Please enter a valid email"
+            label="Email"
+            labelPlacement="outside"
+            name="email"
+            placeholder="Enter your email"
+            type="email"
+          />
+
           <div className="flex gap-2">
-            <VkxButton color="primary" type="submit">
-              Login
+            <VkxButton size="sm" color="primary" type="submit">
+              Submit
             </VkxButton>
-            <VkxButton type="reset">Reset</VkxButton>
+            <VkxButton size="sm" type="reset" variant="flat">
+              Reset
+            </VkxButton>
           </div>
+          {action && (
+            <div className="text-small text-default-500">
+              Action: <code>{action}</code>
+            </div>
+          )}
         </VkxForm>
-        <p className="mt-2 text-sm text-gray-500">
-          Form state: {JSON.stringify(formData)}
-        </p>
+      </div>
+      <div>
+        <h1 className="text-xl font-medium text-black dark:text-white mb-2">
+          3. Validation form
+        </h1>
+        <VkxForm
+          className="w-full max-w-xs flex flex-col gap-4"
+          validationErrors={errors}
+          onReset={() => setAction("reset")}
+          onSubmit={(e) => {
+            e.preventDefault();
+            
+            const employee: Employee = Object.fromEntries(
+              new FormData(e.currentTarget)
+            );
+
+            const student: Student = Object.fromEntries(
+              new FormData(e.currentTarget),
+            );
+
+            console.log(employee);
+            console.log(student);
+
+            const result = callServer(employee);
+
+            setErrors(result.errors);
+          }}
+        >
+          <VkxInput
+            isRequired
+            // errorMessage="Please enter a valid username"
+            label="Username"
+            labelPlacement="outside" 
+            name="username"
+            placeholder="Enter your username"
+            type="text"
+          />
+          <VkxInput
+            isRequired
+            // errorMessage="Please enter a valid username"
+            label="Score"
+            labelPlacement="outside"
+            name="score"
+            placeholder="Enter your score"
+            type="text"
+          />
+
+          <VkxPasswordInput
+            isRequired
+            // errorMessage="Please re-enter a password"
+            label="Password"
+            labelPlacement="outside"
+            name="password"
+            placeholder="Enter your password"
+            type="password"
+          />
+
+          <div className="flex gap-2">
+            <VkxButton size="sm" color="primary" type="submit">
+              Submit
+            </VkxButton>
+            <VkxButton size="sm" type="reset" variant="flat">
+              Reset
+            </VkxButton>
+          </div>
+          {action && (
+            <div className="text-small text-default-500">
+              Action: <code>{action}</code>
+            </div>
+          )}
+        </VkxForm>
       </div>
 
       <div>
         <h1 className="text-xl font-medium text-black dark:text-white mb-2">
-          3. Form với validation behavior aria
+          4. Form với validation behavior aria
         </h1>
         <VkxForm
           className="flex flex-col gap-4 max-w-md"
           validationBehavior="aria"
+          onSubmit={(e) => {
+            e.preventDefault();
+            const fromData = new FormData(e.currentTarget);
+            const data = Object.fromEntries(fromData);
+
+            setSubmitted(data);
+            console.log(data);
+          }}
         >
           <VkxInput
             isRequired
@@ -138,27 +207,9 @@ export default function VkxFormPage() {
 
               return value === "admin" ? "Nice try!" : null;
             }}
-            onValueChange={(e) => handleInputChange("email", e)}
           />
           <VkxButton type="submit">Submit</VkxButton>
         </VkxForm>
-      </div>
-
-      <div>
-        <h1 className="text-xl font-medium text-black dark:text-white mb-2">
-          4. Form với mô tả và autocomplete
-        </h1>
-        <VkxForm autoComplete="on" className="flex flex-col gap-4 max-w-md">
-          <VkxInput
-            placeholder="Full Name &amp; Title"
-            type="text"
-            onValueChange={(e) => handleInputChange("email", e)}
-          />
-          <VkxButton type="submit">Save</VkxButton>
-        </VkxForm>
-        <p className="text-xs text-gray-500 mt-1">
-          Autocomplete is enabled for browser suggestions &amp; hints.
-        </p>
       </div>
 
       <div className="mt-5">
@@ -305,4 +356,12 @@ export default function VkxFormPage() {
       </div>
     </div>
   );
+}
+
+function callServer(dat: any) {
+  return {
+    errors: {
+      username: "Sorry, this username is taken.",
+    },
+  };
 }

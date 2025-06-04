@@ -16,10 +16,12 @@ export function VkxAccordion({
   selectedKeys,
   selectionMode = "multiple",
   variant = "light",
+  ariaLabel = "VkxAccordion",
   ...props
-}: VkxAccordionProps) {
+}: VkxAccordionProps & { ariaLabel?: string }) {
   return (
     <Accordion
+      aria-label={ariaLabel}
       className={className}
       defaultExpandedKeys={defaultExpandedKeys}
       disabledKeys={disabledKeys}

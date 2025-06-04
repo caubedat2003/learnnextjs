@@ -3,7 +3,7 @@ import { Input } from "@heroui/input";
 import { VkxInputProps } from "./vkx-input-props";
 import React from "react";
 
-export const VkxInput: React.FC<VkxInputProps> = ({
+export const VkxInput: React.FC<VkxInputProps & { ariaLabel?: string }> = ({
   accept,
   children,
   className,
@@ -32,33 +32,12 @@ export const VkxInput: React.FC<VkxInputProps> = ({
   type = "text",
   value,
   validate,
+  ariaLabel = "VkxInput",
   ...props
 }) => {
-  // const validateBase = (
-  //   value: string
-  // ): ValidationError | true | null | undefined => {
-  //   let errorMessages: string[] = [];
-  //   if (validate) {
-  //     var res = validate(value);
-  //     errorMessages.push(res);
-  //   }
-  //   if (isRequired && value && errorRequiredMessage)
-  //     errorMessages.push(errorRequiredMessage);
-  //   if (isInvalid && errorInvalidMessage) {
-  //     errorMessages.push(errorInvalidMessage);
-  //   }
-
-  //   return errorMessages;
-  // };
-
-  // const [errorMessages, setErrorMessages] = React.useState<string[]>([]);
-
-  // const onValueChangeBase = (value: string) => {
-  //   if (onValueChange) onValueChange(value);
-  //   if (value && errorRequiredMessage) errorMessages.push(errorRequiredMessage);
-  // };
   return (
     <Input
+      aria-label={ariaLabel}
       accept={accept}
       className={className}
       defaultValue={defaultValue}

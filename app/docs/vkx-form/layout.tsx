@@ -1,3 +1,3 @@
-export default function VkxForm({ children }: { children: React.ReactNode }) {
+export default function VkxFormLayout({ children }: { children: React.ReactNode }) {
   return <div>{children}</div>;
 }

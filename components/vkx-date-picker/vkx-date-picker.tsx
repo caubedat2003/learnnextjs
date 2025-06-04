@@ -22,8 +22,9 @@ export interface VkxDatePickerProps extends DatePickerProps {
   isDateUnavailable?: (date: DateValue) => boolean;
 }
 
-export const VkxDatePicker: React.FC<VkxDatePickerProps> = ({
+export const VkxDatePicker: React.FC<VkxDatePickerProps & { ariaLabel?: string }> = ({
   className,
+  ariaLabel = "VkxDatePicker",
   defaultValue,
   description,
   errorMessage,
@@ -45,6 +46,7 @@ export const VkxDatePicker: React.FC<VkxDatePickerProps> = ({
   return (
     <DatePicker
       className={className}
+      aria-label={ariaLabel}
       defaultValue={defaultValue}
       description={description}
       errorMessage={errorMessage}
