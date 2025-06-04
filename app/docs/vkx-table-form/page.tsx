@@ -1,4 +1,6 @@
+
 "use client";
+
 import VkxButton from "@/components/vkx-button/vkx-button";
 import { VkxDatePicker } from "@/components/vkx-date-picker/vkx-date-picker";
 import { VkxForm } from "@/components/vkx-form/vkx-form";
@@ -15,6 +17,8 @@ import {
 } from "@heroui/react";
 import { parseDate } from "@internationalized/date";
 import React from "react";
+import { EnterpriseFormPage } from "./enterprise-form";
+import { ReactHookFromTestPage } from "./react-hook-from-test";
 
 interface Student {
   name?: string;
@@ -22,6 +26,7 @@ interface Student {
   gender?: string;
   score?: number;
 }
+
 export default function VkxTableFormPage() {
   const [students, setStudents] = React.useState<Student[]>([]);
   const [email, setEmail] = React.useState("");
@@ -37,13 +42,12 @@ export default function VkxTableFormPage() {
           autoComplete="on"
           onSubmit={(e) => {
             e.preventDefault();
-            console.log(e.currentTarget);
+            // console.log(e.currentTarget);
 
-            
             let student: Student = Object.fromEntries(
               new FormData(e.currentTarget)
             );
-            console.log(student);
+            // console.log(student);
             setStudents([...students, student]);
           }}
         >
@@ -129,7 +133,7 @@ export default function VkxTableFormPage() {
                 e.preventDefault();
                 const data = Object.fromEntries(new FormData(e.currentTarget));
                 submitted(data);
-                console.log(data);
+                // console.log(data);
               }}
             >
               <VkxInput
@@ -143,7 +147,7 @@ export default function VkxTableFormPage() {
                 value={email}
                 onValueChange={setEmail}
                 validate={(value) => {
-                  console.log("validate2" + value);
+                  // console.log("validate2" + value);
                   if (value.length < 10) {
                     return "Username must be at least 3 characters long";
                   }
@@ -159,6 +163,13 @@ export default function VkxTableFormPage() {
                 </div>
               )}
             </VkxForm>
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <h1 className="text-xl">3. Ví dụ enterprise form</h1>
+          <div className="mt-6">
+            <EnterpriseFormPage />
           </div>
         </div>
       </div>

@@ -29,14 +29,16 @@
     "@react-aria/i18n": "^3.12.8",
     "@react-aria/ssr": "3.9.8",
     "@react-aria/visually-hidden": "3.8.22",
-    "@react-stately/list": "^3.12.2",
     "@react-stately/data": "^3.13.0",
+    "@react-stately/list": "^3.12.2",
     "framer-motion": "11.13.1",
     "intl-messageformat": "10.7.16",
     "next": "15.3.1",
     "next-themes": "0.4.6",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "react-hook-form": "^7.57.0",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@eslint/compat": "1.2.8",

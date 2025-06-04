@@ -2,6 +2,7 @@ import { InputProps } from "@heroui/input";
 import { ValidationError } from "next/dist/compiled/amphtml-validator";
 import { ReactNode } from "react";
 export interface VkxInputProps extends InputProps {
+  ariaLabel?: string;
   children?: ReactNode;
   className?: string; // add className prop
   type?:
