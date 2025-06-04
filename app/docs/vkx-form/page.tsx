@@ -113,8 +113,8 @@ export default function VkxFormPage() {
         </h1>
         <VkxForm
           className="w-full max-w-xs flex flex-col gap-4"
-          onReset={() => setAction("reset")}
           validationErrors={errors}
+          onReset={() => setAction("reset")}
           onSubmit={(e) => {
             e.preventDefault();
             
@@ -123,15 +123,14 @@ export default function VkxFormPage() {
             );
 
             const student: Student = Object.fromEntries(
-              new FormData(e.currentTarget)
+              new FormData(e.currentTarget),
             );
 
-            student.score;
-            
             console.log(employee);
             console.log(student);
 
             const result = callServer(employee);
+
             setErrors(result.errors);
           }}
         >
