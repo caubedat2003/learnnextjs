@@ -3,10 +3,9 @@ import { CreateHeaders, handleApiError } from "@/src/Helpers/HelpersAPI";
 import { mapErrorToResponseError } from "@/src/Helpers/mapErrorToResponseError";
 
 export default class HttpUtils {
-    public static async get<T>(apiUrl: string, actionCode: string, bodyContent: string,
-        includeToken: boolean = true, closeError: boolean = true) {
+    public static async get<T>(apiUrl: string, filterSearch?: any) {
 
-        return HttpUtils.Getall<T>(apiUrl);
+        return HttpUtils.Getall<T>(apiUrl, filterSearch);
     }
 
     public static async getById<T>(apiUrl: string, id: string) {
@@ -71,8 +70,9 @@ export default class HttpUtils {
     } 
 
     
-    private static async Getall<T>(apiUrl: string) 
+    private static async Getall<T>(apiUrl: string , filterHeader?: any): Promise<PagedResponse<T>>
     {
+      
         const headers = CreateHeaders(true);
         const dto = {
             pageNumber: 1,
@@ -80,7 +80,8 @@ export default class HttpUtils {
             filterName: ""
         };
         const query = new URLSearchParams(dto as any).toString();
-        const apiUrlWithQuery = `${apiUrl}?${query}`;
+        //const apiUrlWithQuery = `${apiUrl}?${query}`;
+        const apiUrlWithQuery = filterHeader? `${apiUrl}?${new URLSearchParams(filterHeader).toString()}`: apiUrl;
         
         try{
             

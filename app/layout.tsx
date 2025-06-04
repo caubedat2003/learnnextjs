@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
+import { Link } from "@heroui/link";
 import clsx from "clsx";
 
 import { Providers } from "./providers";
@@ -7,7 +8,6 @@ import { Providers } from "./providers";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
-import Link from "next/link";
 import { ToastProvider } from "@heroui/react";
 
 export const metadata: Metadata = {
@@ -50,6 +50,7 @@ export default function RootLayout({
             </main>
             <footer className="w-full flex items-center justify-center py-3">
               <Link
+                isExternal
                 className="flex items-center gap-1 text-current"
                 href="https://heroui.com?utm_source=next-app-template"
                 title="heroui.com homepage"
