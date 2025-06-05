@@ -153,7 +153,7 @@ export default function Page() {
         },
       }));
     }
-  }
+  };
   const handleDateChange = (name: any, date: any) => {
     const [section, field] = name.split(".") as [keyof FormDataType, string];
 
@@ -191,12 +191,11 @@ export default function Page() {
 
   const onCloseModal = () => {
     setIsModal(false);
-  }
+  };
 
   const handleEdit = () => {
     setIsModal(true);
   };
-
 
   return (
     <>
