@@ -7,12 +7,12 @@ import { SelectProps } from "@heroui/react";
 export interface VkxSelectProps extends Omit<SelectProps,'children'> {
   selectItems: VkxSelectItem[];
   ariaLabel?: string;
-  defaultSelectedKeys?: string[];
+  defaultSelectedKeys?: Set<string>;
   placeholder?: string;
   label?: string;
   description?: string;
   errorMessage?: string;
-  selectedKeys?: string[];
+  selectedKeys?: Set<string>;
   disabledKeys?: Set<string>;
   className?: string;
   onSelectionChange?: (selection: SharedSelection) => void;

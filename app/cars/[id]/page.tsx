@@ -504,7 +504,7 @@ export default function Page() {
             />
 
             <VkxMonthInput
-              defaultSelectedKeys={[orther.month]}
+              defaultSelectedKeys={new Set([orther.month])}
               description="Chọn tháng"
               isDisabled={readOnly}
               label="Tháng"
@@ -515,7 +515,7 @@ export default function Page() {
             />
 
             <VkxYearInput
-              defaultSelectedKeys={[orther.year]}
+              defaultSelectedKeys={new Set([orther.year])}
               description="Chọn năm"
               isDisabled={readOnly}
               label="Năm"
@@ -621,7 +621,7 @@ export default function Page() {
                           { key: "2", children: "Sắp hết hàng" },
                           { key: "3", children: "Hết hàng" },
                         ]}
-                        selectedKeys={[prod.status]}
+                        selectedKeys={new Set([prod.status])}
                         value={prod.status}
                         onChange={(e) =>
                           handleProductSelectChange(e, index, "status")
@@ -714,7 +714,7 @@ export default function Page() {
             />
 
             <VkxSelect
-              defaultSelectedKeys={[modalData.status]}
+              defaultSelectedKeys={new Set([modalData.status])}
               label="Trạng thái"
               labelPlacement="outside"
               name="status"
