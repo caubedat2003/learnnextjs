@@ -18,7 +18,7 @@ export function VkxAccordion({
   variant = "light",
   ariaLabel = "VkxAccordion",
   ...props
-}: VkxAccordionProps & { ariaLabel?: string }) {
+}: VkxAccordionProps) {
   return (
     <Accordion
       aria-label={ariaLabel}
@@ -41,7 +41,7 @@ export function VkxAccordion({
           indicator={item.indicator}
           startContent={item.startContent}
           subtitle={item.subtitle}
-          textValue={item.titleText}
+          textValue={item.titleText ?? ""}
           title={item.title}
         >
           {item.children}

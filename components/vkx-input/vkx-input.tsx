@@ -3,7 +3,8 @@ import { Input } from "@heroui/input";
 import { VkxInputProps } from "./vkx-input-props";
 import React from "react";
 
-export const VkxInput: React.FC<VkxInputProps & { ariaLabel?: string }> = ({
+export const VkxInput: React.FC<VkxInputProps > = ({
+  ariaLabel = "VkxInput",
   accept,
   children,
   className,
@@ -32,7 +33,6 @@ export const VkxInput: React.FC<VkxInputProps & { ariaLabel?: string }> = ({
   type = "text",
   value,
   validate,
-  ariaLabel = "VkxInput",
   ...props
 }) => {
   return (

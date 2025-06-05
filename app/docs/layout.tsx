@@ -37,7 +37,6 @@ const formComponents: NavigationModels[] = [
   { name: "PhoneInput", href: "/docs/vkx-phone-input" },
   { name: "RadioGroup", href: "/docs/vkx-radio-group" },
   { name: "RangeCalender", href: "/docs/vkx-range-calender" },
-
   { name: "Select", href: "/docs/vkx-select" },
   { name: "SearchInput", href: "/docs/vkx-search-input" },
   { name: "Switch", href: "/docs/vkx-switch" },
@@ -95,6 +94,7 @@ export default function DocsLayout({
             accordionItems={[
               {
                 key: "component",
+              titleText: "Components",
                 title: (
                   <p className="text-xl font-semibold text-foreground">
                     Components
@@ -106,6 +106,7 @@ export default function DocsLayout({
                       // Form components
                       {
                         key: "form-components",
+                      titleText: "form-components",
                         title: (
                           <h3 className="text-lg font-semibold text-foreground">
                             Form
@@ -141,6 +142,7 @@ export default function DocsLayout({
                       // Layout components
                       {
                         key: "layout-components",
+                      titleText: "layout-components",
                         title: (
                           <p className="text-lg font-semibold text-foreground">
                             Layout
@@ -176,6 +178,8 @@ export default function DocsLayout({
                       // Notification components
                       {
                         key: "notification-components",
+                      titleText: "notification-components",
+
                         title: (
                           <h3 className="text-lg font-semibold text-foreground">
                             Notification
@@ -211,6 +215,8 @@ export default function DocsLayout({
                       // Display components
                       {
                         key: "display-component",
+                      titleText: "display-component",
+
                         title: (
                           <p className="text-lg font-semibold text-foreground">
                             Display
