@@ -1,316 +1,438 @@
-"use client";
+'use client'
 
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import CompanyCreateDto from "@/src/DTOParams/Company/CompanyCreateDto";
-import HttpUtils from "@/utils/HttpUtils";
-import Company from "@/src/entities/Company";
-import { VkxForm } from "@/components/vkx-form/vkx-form";
-import { VkxInput } from "@/components/vkx-input/vkx-input";
-import { VKXCard } from "@/components/vkx-card/vkx-card";
-import VkxButton from "@/components/vkx-button/vkx-button";
-import { VkxDatePicker } from "@/components/vkx-date-picker/vkx-date-picker";
-import { VkxSelect } from "@/components/vkx-select/vkx-select";
-import { VkxSelectItem } from "@/components/vkx-select/vkx-select-item";
-import { VkxRadioGroup, VkxRadio } from "@/components/vkx-radio/vkx-radio";
-import { VkxNumberInput } from "@/components/vkx-number-input/vkx-number-input";
-import { VkxFileInput } from "@/components/vkx-file-input/vkx-file-input";
-
 import {
-  today,
-  parseDate,
-  parseDateTime,
-  DateValue,
-} from "@internationalized/date";
+    Checkbox,
+    Divider,
+    Table,
+    TableBody,
+    TableCell,
+    TableColumn,
+    TableHeader,
+    TableRow,
+    ButtonGroup,
+} from "@heroui/react";
+import { parseDate, CalendarDate, DateValue } from "@internationalized/date";
 
-type CountryItem = {
-  name: string;
-  flag: string;
-  iso2: string;
-  iso3: string;
-  msg: string;
+import VkxButton from "@/components/vkx-button/vkx-button";
+import VkxCheckbox from "@/components/vkx-checkbox/vkx-checkbox";
+import VkxPhoneInput from "@/components/vkx-phone-input/vkx-phone-input";
+import { VkxForm } from "@/components/vkx-form/vkx-form";
+import { VKXCard } from "@/components/vkx-card/vkx-card";
+import { VkxInput } from "@/components/vkx-input";
+import { VkxPasswordInput } from "@/components/vkx-password-input/vkx-password-input";
+import { VkxDatePicker } from "@/components/vkx-date-picker/vkx-date-picker";
+import { VkxRadio, VkxRadioGroup } from "@/components/vkx-radio/vkx-radio";
+import { VkxNumberInput } from "@/components/vkx-number-input/vkx-number-input";
+import { VkxMonthInput } from "@/components/vkx-month-input/vkx-month-input";
+import { VkxYearInput } from "@/components/vkx-year-input/vkx-year-input";
+import { VkxTextArea } from "@/components/vkx-text-area/vkx-text-area";
+import { VkxCheckboxGroup } from "@/components/vkx-checkbox/vkx-checkbox-group";
+import { VkxSelect } from "@/components/vkx-select/vkx-select";
+
+const optionsGroupCheckbox = [
+    { label: "Lựa chọn A", value: "a" },
+    { label: "Lựa chọn B", value: "b" },
+    { label: "Lựa chọn C", value: "c" },
+];
+
+type Product = {
+    name: string;
+    importDate: CalendarDate;
+    status: string;
+    price: number;
 };
 
-export default function CreateCompanyPage() {
-  const placeholderDate = today("UTC");
-  const minValue = parseDate("1900-01-01");
-  const [selectOptions, setSelectOptions] = React.useState<VkxSelectItem[]>([]);
-  const [files, setFiles] = React.useState<FileList>();
-  const [formData, setFormData] = useState<any>({});
+// Fix: Display status label instead of key and format price with commas
+const statusLabels: { [key: string]: string } = {
+    "1": "Còn hàng",
+    "2": "Sắp hết hàng",
+    "3": "Hết hàng",
+};
 
+const formatPrice = (price: number) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Add commas every 3 digits
+};
 
-  // const [formData, setFormData] = useState<CompanyCreateDto>({
-  //   name: "",
-  //   email: "",
-  //   address: "",
-  //   phone: ""
-  // });
+type FormData = {
+    username: string;
+    password: string;
+    phone: string;
+    email: string;
+    birthDate: CalendarDate;
+    gender: string;
+    bio: string;
+    exampleDate: DateValue | null;
+    weight: number;
+    month: string;
+    year: string;
+    description: string;
+    groupOptions: string[];
+    newsletter: boolean;
+}
 
-  useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        const res = await fetch("https://countriesnow.space/api/v0.1/countries/flag/images");
-        const json = await res.json();
+export default function CreatePage() {
+    const [checked, setChecked] = React.useState<string[]>(["a"]);
+    const [products, setProduct] = React.useState<Product[]>([]);
+    const [productInput, setProductInput] = useState({
+        name: "",
+        importDate: new CalendarDate(2025, 1, 1),
+        status: "",
+        price: 0,
+    });
+    const [formData, setFormData] = useState<FormData>({
+        username: "",
+        password: "",
+        phone: "",
+        email: "",
+        birthDate: new CalendarDate(2025, 1, 1),
+        gender: "",
+        bio: "",
+        exampleDate: null,
+        weight: 0,
+        month: "",
+        year: "",
+        description: "",
+        groupOptions: ["a"],
+        newsletter: false,
+    })
 
-        if (!json.error) {
-          console.log("Countries fetched successfully:", json.data);
-          const options = json.data.map((country: CountryItem) => ({
-            label: (country.msg
-            ),
-            value: country.msg,
-            key: country.msg,
-            textValue: country.msg
-          }));
-          setSelectOptions(options);
-        }
-      } catch (err) {
-        console.error("Failed to fetch countries:", err);
-      }
+    // Handle nút checkbox
+    const handleCheckboxChange = (value: string[]) => {
+        setFormData((prev) => ({ ...prev, groupOptions: value }));
     };
 
-    fetchCountries();
-  }, []);
+    const handleDatePickerChange = (name: string, date: DateValue | null) => {
+        setFormData((prev) => ({
+            ...prev,
+            [name]: date && "toDate" in date ? date : prev[name as keyof typeof prev],
+        }));
+    };
 
+    const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setFormData((prev) => ({ ...prev, month: e.target.value }));
+    };
 
-  let HostUrl = process.env.NODE_ENV === 'development'
-    ? process.env.NEXT_PUBLIC_URL_DEV as string
-    : process.env.NEXT_PUBLIC_URL_PRODUCTION as string;
-  let apiUrl = HostUrl + "company";
+    const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setFormData((prev) => ({ ...prev, year: e.target.value }));
+    };
 
-  const router = useRouter();
+    // Handle các input vào bảng
+    const handleProductChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setProductInput((prev) => ({
+            ...prev,
+            [name]: name === 'price' ? Number(value) : value // Convert price to number
+        }));
+    };
 
-  //theo dõi sự thay đổi của text. cập nhật vào state
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev: Record<string, any>) => ({ ...prev, [name]: value }));
-  };
+    // Handle ngày tháng năm vào bảng
+    const handleDateChange = (date: DateValue | null) => {
+        if (date) {
+            setProductInput((prev) => ({ ...prev, importDate: date as CalendarDate }));
+        }
+    };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("📝 Submitted form data:", formData);
-  };
+    // Handle xoá sản phẩm khỏi bảng
+    const deleteProduct = (index: number) => {
+        setProduct(products.filter((_, i) => i !== index));
+    };
 
-  //   sự kiên lưu tạo mới dữ liệu
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
+    // Hàm thêm sản phẩm vào bảng
+    const addProduct = () => {
+        if (productInput.name && productInput.importDate && productInput.status && productInput.price !== undefined) {
+            const newEmployee: Product = {
+                name: productInput.name,
+                importDate: productInput.importDate,
+                status: productInput.status,
+                price: productInput.price,
+            };
+            setProduct([...products, newEmployee]);
+            setProductInput({ name: "", importDate: new CalendarDate(2025, 1, 1), status: "", price: 0 });
+        }
+    };
 
-  //   try {
-  //     const response = await HttpUtils.create<Company>(apiUrl, formData);
-  //     //   const response = await fetch(`${process.env.NEXT_PUBLIC_URL_DEV}Company`, {
-  //     //     method: "POST",
-  //     //     headers: { "Content-Type": "application/json" },
-  //     //     body: JSON.stringify(formData)
-  //     //   });
+    // Map các input và lưu
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+    };
 
-  //     if (response) {
-  //       router.push("/cars"); // điều hướng sau khi tạo thành công
-  //     } else {
-  //       console.error("Tạo thất bại");
-  //     }
-  //   } catch (error) {
-  //     console.error("Lỗi khi gửi yêu cầu:", error);
-  //   }
-  // };
-
-  return (
-    <div>
-      <h1 className="text-3xl font-medium text-black dark:text-white mb-3">
-        <strong>
-          Add New Company
-        </strong>
-      </h1>
-
-      <VKXCard fullWidth className="space-y-5 p-4 radius-lg" >
-        <VkxForm className="gap-y-4" onSubmit={handleSubmit}
-        >
-          <h2 className="text-xl font-semibold text-black dark:text-white mb-3">
-            Company Information
-          </h2>
-          <VkxInput
-            isRequired
-            onChange={handleChange}
-            errorMessage="Please enter a valid name"
-            label="Company Name"
-            labelPlacement="outside"
-            name="Company Name"
-            placeholder="Enter your company name"
-            type="text"
-          />
-          <VkxInput
-            onChange={handleChange}
-            isRequired
-            errorMessage="Please enter a valid email"
-            label="Email"
-            labelPlacement="outside"
-            name="Email"
-            placeholder="Enter company email"
-            type="text"
-          />
-          <div className="w-full grid grid-cols-4 gap-4">
-            <div className="col-span-2">
-              <VkxInput
-                onChange={handleChange}
-                isRequired
-                errorMessage="Please enter a valid phone number"
-                label="Phone number"
-                labelPlacement="outside"
-                name="Phone number"
-                placeholder="Enter phone number"
-                type="text"
-              />
-            </div>
-            <div className="col-span-2">
-              <VkxDatePicker
-                onChange={(date: DateValue | null) => {
-                  if (date) {
-                    setFormData((prev: any) => ({ ...prev, establishedDate: date.toString() }));
-                  }
-                }}
-                label="Date of establishment"
-                labelPlacement="outside"
-                minValue={minValue}
-                placeholder={placeholderDate}
-              />
-            </div>
-          </div>
-
-          <div className="w-full grid grid-cols-3 gap-4">
-            <VkxInput
-              onChange={handleChange}
-              className="col-span-2 w-full"
-              isRequired
-              errorMessage="Please enter a website URL"
-              label="Website URL"
-              labelPlacement="outside"
-              name="Website URL"
-              placeholder="Enter Website URL"
-              startContent={
-                <div className="pointer-events-none flex items-center">
-                  <span className="text-default-400 text-small">https://</span>
+    const handleSave = () => {
+        console.log("Form Data:", { ...formData, products }); // Log all form data and products
+    };
+    return (
+        <div>
+            <h1 className="text-3xl font-medium text-black dark:text-white mb-3">
+                <strong>
+                    Thêm người dùng mới
+                </strong>
+            </h1>
+            <VKXCard className="mb-6 w-full">
+                <div className="w-full">Thông tin cơ bản</div>
+                <Divider className="mb-5" />
+                <div className="grid gap-4 grid-cols-1 md:grid-cols-3 mb-5">
+                    <VkxInput
+                        aria-label="Enter username"
+                        label="Tên đăng nhập"
+                        labelPlacement="outside"
+                        name="username"
+                        placeholder="Nhập tên đăng nhập"
+                        errorMessage="Tên đăng nhập không được để trống"
+                        type="text"
+                        isRequired
+                        value={formData.username}
+                        onChange={handleInputChange}
+                    />
+                    <VkxPasswordInput
+                        aria-label="Enter password"
+                        label="Mật khẩu"
+                        labelPlacement="outside"
+                        name="password"
+                        placeholder="Nhập mật khẩu"
+                        errorMessage="Mật khẩu không được để trống"
+                        isRequired
+                        value={formData.password}
+                        onChange={handleInputChange}
+                    />
+                    <VkxPhoneInput
+                        aria-label="Enter số điện thoại"
+                        label="Số điện thoại"
+                        labelPlacement="outside"
+                        name="phone"
+                        placeholder="Nhập số điện thoại"
+                        errorMessage="Số điện thoại không được để trống"
+                        isRequired
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                    />
+                    <VkxInput
+                        aria-label="Enter email"
+                        label="Email"
+                        labelPlacement="outside"
+                        name="email"
+                        placeholder="Nhập email"
+                        errorMessage="Email không được để trống"
+                        type="email"
+                        isRequired
+                        value={formData.email}
+                        onChange={handleInputChange}
+                    />
+                    <VkxDatePicker
+                        aria-label="Select your desired birthDate"
+                        label="Ngày sinh"
+                        labelPlacement="outside"
+                        name="birthDate"
+                        isRequired
+                        minValue={new CalendarDate(1900, 1, 1)}
+                        value={formData.birthDate}
+                        onChange={(date) => handleDatePickerChange("birthDate", date)}
+                    />
+                    <VkxRadioGroup
+                        label="Giới tính"
+                        name="gender"
+                        orientation="horizontal"
+                        value={formData.gender}
+                        onValueChange={(value: string) => setFormData((prev) => ({ ...prev, gender: value }))}
+                    >
+                        <VkxRadio value="Nam">Nam</VkxRadio>
+                        <VkxRadio value="Nữ">Nữ</VkxRadio>
+                        <VkxRadio value="Khác">Khác</VkxRadio>
+                    </VkxRadioGroup>
                 </div>
-              }
-              type="text"
-            />
-            <div className="w-full">
-              <VkxRadioGroup
-                label="Select company type"
-                orientation="horizontal"
-                onChange={handleChange}
-                name="CompanyType"
-              >
-                <VkxRadio value="Ltd">Ltd</VkxRadio>
-                <VkxRadio value="CORPORATION">Corporation</VkxRadio>
-                <VkxRadio value="PrivateEnterprise">Private Enterprise</VkxRadio>
-              </VkxRadioGroup>
+            </VKXCard>
+
+            <VKXCard className="w-full mb-6">
+                <h3 className="text-md font-semibold mb-2">Khác</h3>
+                <Divider className="mb-5" />
+                <div className="grid gap-4 grid-cols-1 md:grid-cols-3 mb-5">
+                    <VkxInput
+                        aria-label="Enter bio"
+                        label="Bio"
+                        labelPlacement="outside"
+                        name="bio"
+                        placeholder="Nhập url bio của bạn"
+                        errorMessage="Bio không được để trống"
+                        type="text"
+                        isRequired
+                        startContent={
+                            <div className="pointer-events-none flex items-center">
+                                <span className="text-default-400 text-small">https://</span>
+                            </div>
+                        }
+                        value={formData.bio}
+                        onChange={handleInputChange}
+                    />
+                    <VkxDatePicker
+                        aria-label="Select your desired exampleDate"
+                        label="Example"
+                        labelPlacement="outside"
+                        name="exampleDate"
+                        minValue={new CalendarDate(2025, 5, 1)}
+                        value={formData.exampleDate}
+                        onChange={(date) => handleDatePickerChange("exampleDate", date)}
+                    />
+                    <VkxNumberInput
+                        label="Cân nặng"
+                        labelPlacement="outside"
+                        key={"weight"}
+                        name="weight"
+                        placeholder="Nhập số cân của bạn"
+                        minValue={0}
+                        value={formData.weight}
+                        onChange={(value) => setFormData((prev) => ({ ...prev, weight: Number(value) }))}
+                    />
+
+                    <VkxMonthInput
+                        description="Chọn tháng"
+                        label="Tháng"
+                        labelPlacement="outside"
+                        name="month"
+                        value={formData.month}
+                        onChange={handleMonthChange}
+                    />
+
+                    <VkxYearInput
+                        description="Chọn năm"
+                        label="Năm"
+                        labelPlacement="outside"
+                        name="year"
+                        value={formData.year}
+                        onChange={handleYearChange}
+                    />
+                    <VkxTextArea
+                        label="Mô tả"
+                        labelPlacement="outside"
+                        name="description"
+                        maxRows={6}
+                        minRows={2}
+                        placeholder="Nhập mô tả..."
+                        value={formData.description}
+                        onChange={handleInputChange}
+                    />
+                </div>
+            </VKXCard>
+
+            <VKXCard className="w-full mb-6">
+                <h3 className="text-md font-semibold mb-2">Điều khoản</h3>
+                <Divider className="mb-5" />
+                <div className="grid gap-x-2 gap-y-3 grid-cols-1">
+                    <VkxCheckboxGroup
+                        label="Chọn các mục phù hợp"
+                        name="groupOptions"
+                        value={formData.groupOptions}
+                        onChange={handleCheckboxChange}
+                    >
+                        {optionsGroupCheckbox.map((option) => (
+                            <Checkbox
+                                key={option.value}
+                                value={option.value}
+                            >
+                                {option.label}
+                            </Checkbox>
+                        ))}
+                    </VkxCheckboxGroup>
+
+                    <VkxCheckbox
+                        value="newsletter"
+                        onChange={(e) => setFormData((prev) => ({ ...prev, newsletter: e.target.checked }))}
+                    >
+                        Đăng kí để nhận thông tin mới nhất
+                    </VkxCheckbox>
+                </div>
+            </VKXCard>
+
+            <VKXCard className="w-full">
+                <h3 className="text-md font-semibold mb-2">Danh sách sản phẩm</h3>
+                <Divider className="mb-5" />
+                <Table aria-label="Product list table">
+                    <TableHeader>
+                        <TableColumn>Tên</TableColumn>
+                        <TableColumn>Ngày nhập</TableColumn>
+                        <TableColumn>Trạng thái</TableColumn>
+                        <TableColumn>Giá (VNĐ)</TableColumn>
+                        <TableColumn> </TableColumn>
+                    </TableHeader>
+                    <TableBody>
+                        <>
+                            {products.map((products, index) => (
+                                <TableRow key={index}>
+                                    <TableCell>{products.name}</TableCell>
+                                    <TableCell>{products.importDate.toString()}</TableCell>
+                                    <TableCell>{statusLabels[products.status] || products.status}</TableCell>
+                                    <TableCell>{formatPrice(products.price)}</TableCell>
+                                    <TableCell>
+                                        <VkxButton
+                                            color="danger"
+                                            variant="shadow"
+                                            size="md"
+                                            onClick={() => deleteProduct(index)} // Handle delete on click
+                                        >
+                                            Delete
+                                        </VkxButton>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                            <TableRow className="root-input-table-key">
+                                <TableCell>
+                                    <VkxInput
+                                        aria-label="Enter product name"
+                                        name="name"
+                                        value={productInput.name}
+                                        onChange={handleProductChange}
+                                    />
+                                </TableCell>
+                                <TableCell>
+                                    <VkxDatePicker
+                                        aria-label="Select import date"
+                                        name="importDate"
+                                        value={productInput.importDate}
+                                        onChange={(date) => handleDateChange(date)}
+                                        minValue={parseDate("1945-01-01")}
+                                    />
+                                </TableCell>
+                                <TableCell>
+                                    <VkxSelect
+                                        aria-label="Select product status"
+                                        name="status"
+                                        value={productInput.status}
+                                        onChange={handleProductChange}
+                                        selectItems={[
+                                            { key: "1", children: "Còn hàng" },
+                                            { key: "2", children: "Sắp hết hàng" },
+                                            { key: "3", children: "Hết hàng" },
+                                        ]}
+                                        className="min-w-[150px]"
+                                    />
+                                </TableCell>
+                                <TableCell>
+                                    <VkxNumberInput
+                                        aria-label="Enter product price"
+                                        name="price"
+                                        value={productInput.price}
+                                        maxValue={1000000000}
+                                        minValue={0}
+                                        onChange={(value) => setProductInput((prev) =>
+                                            ({ ...prev, price: Number(value) }))} // Handle number input
+                                    />
+                                </TableCell>
+                                <TableCell>
+                                    <VkxButton type="submit" color="primary" variant="shadow" size="md" onClick={addProduct}>
+                                        Add
+                                    </VkxButton>
+                                </TableCell>
+                            </TableRow>
+                        </>
+                    </TableBody>
+                </Table>
+            </VKXCard>
+            <div className="mt-4">
+                <VkxButton color="success" variant="shadow" size="lg" onClick={handleSave}>
+                    Save
+                </VkxButton>
             </div>
-          </div>
-
-          <div className="w-full grid grid-cols-3 gap-4">
-            <div className="w-full">
-              <VkxInput
-                onChange={handleChange}
-                label="Number of employees (estimated)"
-                labelPlacement="outside"
-                placeholder="Enter number of employees"
-                name="NumOfEmployees"
-                type="number"
-              ></VkxInput>
-            </div>
-            <div className="w-full col-span-2">
-              <VkxFileInput
-                isRequired
-                multiple
-                label="Company Logo"
-                name="CompanyLogo"
-                labelPlacement="outside"
-                onChange={(e) => {
-                  if (e.target.files) {
-                    setFiles(e.target.files);
-                  }
-                }}
-              />
-            </div>
-          </div>
-
-          <h2 className="text-xl font-semibold text-black dark:text-white mb-3">
-            Address Information
-          </h2>
-          <div className="w-full grid grid-cols-3 gap-4">
-            <VkxInput
-              onChange={handleChange}
-              className="w-full"
-              label="Address line"
-              labelPlacement="outside"
-              name="Address line"
-              placeholder="Enter Address line"
-              type="text"
-            />
-            <VkxInput
-              onChange={handleChange}
-              className="w-full"
-              label="Street"
-              labelPlacement="outside"
-              name="Street"
-              placeholder="Enter Street"
-              type="text"
-            />
-            <VkxInput
-              onChange={handleChange}
-              className="w-full"
-              isRequired
-              errorMessage="Please enter district"
-              label="District"
-              labelPlacement="outside"
-              name="District"
-              placeholder="Enter District"
-              type="text"
-            />
-          </div>
-
-          <div className="w-full grid grid-cols-3 gap-4">
-            <VkxInput
-              onChange={handleChange}
-              className="w-full"
-              isRequired
-              errorMessage="Please enter city"
-              label="City"
-              labelPlacement="outside"
-              name="City"
-              placeholder="Enter city"
-              type="text"
-            />
-            <VkxSelect
-              onSelectionChange={(val) =>
-                setFormData((prev: any) => ({ ...prev, country: val }))
-              }
-              isVirtualized={true}
-              className="w-full"
-              label="Country"
-              labelPlacement="outside"
-              placeholder="Select a country"
-              selectItems={selectOptions}
-            />
-            <VkxInput
-              onChange={handleChange}
-              className="w-full"
-              label="Postal code"
-              labelPlacement="outside"
-              name="Postal code"
-              placeholder="Enter postal code"
-              type="text"
-            />
-          </div>
-
-          <div className="place-items-end">
-            <div className="w-full flex gap-4 justify-end">
-              <VkxButton type="submit">Huỷ</VkxButton>
-              <VkxButton type="submit" color="success">Lưu</VkxButton>
-            </div>
-          </div>
-
-        </VkxForm>
-      </VKXCard>
-    </div>
-  );
+        </div>
+    );
 }
