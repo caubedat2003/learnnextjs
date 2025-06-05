@@ -6,25 +6,24 @@ interface VkxYearInputProps extends Omit<VkxSelectProps, "selectItems"> {
   selectItems?: VkxSelectItem[];
 }
 
-export const VkxYearInput: React.FC<VkxYearInputProps & { ariaLabel?: string }> = ({
-  selectItems,
-  ariaLabel = "VkxYearInput",
-  ...props
-}) => {
+export const VkxYearInput: React.FC<
+  VkxYearInputProps & { ariaLabel?: string }
+> = ({ selectItems, ariaLabel = "VkxYearInput", ...props }) => {
   getSelectItems();
+
   return (
     <VkxSelect
       ariaLabel={ariaLabel}
       selectItems={selectItems ?? years}
       {...props}
-    ></VkxSelect>
+    />
   );
 };
 let years: VkxSelectItem[] = [];
 
 function getSelectItems() {
   if (years.length != 0) return;
-  console.log("get time 1");
+  // console.log("get time 1");
   const now = new Date();
   const year = now.getFullYear();
 
